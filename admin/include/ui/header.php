@@ -100,7 +100,7 @@ include_once 'get/userinfo.php';
     });
 
     function replaceHTMLWYSIWYG(to_replace, new_value) {
-      if ("<?php echo $arrConfig['url_site'] ?>" == "<?php echo $url_site_escola ?>") {
+      if ("<?php echo $arrConfig['url_site'] ?>" == "<?php echo $url_site_escola ?>" || "<?php echo $arrConfig['url_site'] ?>" == "<?php echo $url_site_prod ?>") {
         var html = $('textarea.wysiwyg').summernote('code');
         html = html.replace(new RegExp(to_replace, 'g'), new_value);
         $('textarea.wysiwyg').summernote('code', html);
@@ -126,6 +126,8 @@ include_once 'get/userinfo.php';
                   let url = image.url;
                   if ("<?php echo $arrConfig['url_site'] ?>" == "<?php echo $url_site_escola ?>") {
                     url = url.replace("<?php echo $url_site_local ?>", "<?php echo $url_site_escola ?>");
+                  } else if ("<?php echo $arrConfig['url_site'] ?>" == "<?php echo $url_site_prod ?>") {
+                    url = url.replace("<?php echo $url_site_local ?>", "<?php echo $url_site_prod ?>");
                   }
                   var imageNode = $('<img>').attr('src', url);
                   $('textarea.wysiwyg').summernote('insertNode', imageNode[0]);
@@ -137,6 +139,7 @@ include_once 'get/userinfo.php';
           },
           onInit: function () {
             replaceHTMLWYSIWYG('<?php echo $url_site_local ?>', '<?php echo $url_site_escola ?>');
+            replaceHTMLWYSIWYG('<?php echo $url_site_local ?>', '<?php echo $url_site_prod ?>');
           },
         }
       });

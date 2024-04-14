@@ -1,16 +1,16 @@
 <?php
 include 'include/ui/header.php';
 
-$mode = isset ($_GET['mode']) ? $_GET['mode'] : null; // null | handle_form (process form action)
-$module = isset ($_GET['module']) ? $_GET['module'] : 'patrocinadores'; // slug of the module
-$action = isset ($_GET['action']) ? $_GET['action'] : 'list'; // list | add | update | delete
+$mode = isset($_GET['mode']) ? $_GET['mode'] : null; // null | handle_form (process form action)
+$module = isset($_GET['module']) ? $_GET['module'] : 'patrocinadores'; // slug of the module
+$action = isset($_GET['action']) ? $_GET['action'] : 'list'; // list | add | update | delete
 
 function renderFormField($field, $config, $languages, $values = [])
 {
     global $arrConfig, $module, $action;
-    $required = (!isset ($config['required']) || $config['required']) ? 'required' : '';
+    $required = (!isset($config['required']) || $config['required']) ? 'required' : '';
     echo "<div class='mb-3'>";
-    if (isset ($config['lang_dependent']) && $config['lang_dependent']) {
+    if (isset($config['lang_dependent']) && $config['lang_dependent']) {
         echo "<label class='form-label'>{$config['name']}</label>";
         echo "<div class='table-responsive'>";
         echo "<table class='table'>";
@@ -21,7 +21,7 @@ function renderFormField($field, $config, $languages, $values = [])
         echo "</tr></thead>";
         echo "<tbody><tr>";
         foreach ($languages as $lang => $langName) {
-            $value = isset ($values[$lang]) ? $values[$lang] : '';
+            $value = isset($values[$lang]) ? $values[$lang] : '';
             $inputId = "{$field}_{$lang}";
             echo "<td>";
             if ($config['type'] === 'textarea') {
@@ -35,7 +35,7 @@ function renderFormField($field, $config, $languages, $values = [])
                 echo "<input type='number' class='form-control' name='{$field}[$lang]' id='$inputId' value='$value' $required step='0.01'>";
             } else if ($config['type'] === 'image') {
                 echo "<input type='file' class='form-control' name='{$field}[$lang]' id='$inputId' $required accept='image/*'>";
-                if (!empty ($value)) {
+                if (!empty($value)) {
                     echo "<img src='{$arrConfig['url_site']}/assets/img/$config[folder]/$value' style='max-width: 100px; max-height: 100px'>";
                 }
             } else {
@@ -49,10 +49,10 @@ function renderFormField($field, $config, $languages, $values = [])
     } else {
         $input = "";
 
-        if (isset ($config['foreign'])) {
+        if (isset($config['foreign'])) {
             $foreign = $config['foreign'];
             $input = "<select class='form-select' name='$field' $required>";
-            $highlighted_columns = isset ($foreign['highlighted_columns']) ? $foreign['highlighted_columns'] : [];
+            $highlighted_columns = isset($foreign['highlighted_columns']) ? $foreign['highlighted_columns'] : [];
             $q = "SELECT * FROM $foreign[module]";
             $foreignData = my_query($q);
 
@@ -115,7 +115,7 @@ function renderFormField($field, $config, $languages, $values = [])
             $input .= "</select>";
         } elseif ($config['type'] === 'image') {
             $input = "<input type='file' class='form-control' name='$field' $required accept='image/*'>";
-            if (!empty ($values[$field])) {
+            if (!empty($values[$field])) {
                 $input .= "<img src='{$arrConfig['url_site']}/assets/img/$config[folder]/{$values[$field]}' style='max-width: 100px; max-height: 100px'>";
             }
         } else {
@@ -140,7 +140,7 @@ function renderForm($module, $action, $fields, $languages, $data = [])
     $textoForm = "<form method='post' enctype='multipart/form-data' action='crud.php?module=$module&action=$action&mode=handle_form";
     if ($action == 'update') {
         foreach ($fields as $field => $value) {
-            if (isset ($value['primary']) && $value['primary']) {
+            if (isset($value['primary']) && $value['primary']) {
                 $textoForm .= "&$field=" . $data['data_main'][$field];
             }
         }
@@ -150,12 +150,12 @@ function renderForm($module, $action, $fields, $languages, $data = [])
 
     foreach ($fields as $field => $config) {
         $values = [];
-        if (isset ($config['lang_dependent']) && $config['lang_dependent']) {
+        if (isset($config['lang_dependent']) && $config['lang_dependent']) {
             foreach ($languages as $lang => $langName) {
-                $values[$lang] = isset ($data['data_langs'][$lang][$field]) ? $data['data_langs'][$lang][$field] : '';
+                $values[$lang] = isset($data['data_langs'][$lang][$field]) ? $data['data_langs'][$lang][$field] : '';
             }
         } else {
-            $values[$field] = isset ($data['data_main'][$field]) ? $data['data_main'][$field] : '';
+            $values[$field] = isset($data['data_main'][$field]) ? $data['data_main'][$field] : '';
         }
         renderFormField($field, $config, $languages, $values);
     }
@@ -163,7 +163,7 @@ function renderForm($module, $action, $fields, $languages, $data = [])
     if ($action == 'update') {
         foreach ($modules as $slug => $_module) {
             foreach ($_module['columns'] as $field => $config) {
-                if (isset ($config['foreign']) && $config['foreign']['module'] == $module) {
+                if (isset($config['foreign']) && $config['foreign']['module'] == $module) {
                     echo "<h4>{$_module['name']}</h4>";
 
                     $foreign = $config['foreign'];
@@ -193,7 +193,7 @@ function renderForm($module, $action, $fields, $languages, $data = [])
 function renderTable($module, $fields, $data, $isDatatable = true, $showActions = true, $showAddButton = true)
 {
     global $arrConfig, $modules, $formats;
-    if (isset ($config['editable']) && $modules[$module]['supports_lang']) {
+    if (isset($config['editable']) && $modules[$module]['supports_lang']) {
         echo "<select class='form-select mb-3' onchange=\"window.location.href = this.value\">";
         foreach ($arrConfig['langs'] as $lang => $name) {
             $selected = $_GET['lang'] == $lang ? 'selected' : '';
@@ -214,7 +214,7 @@ function renderTable($module, $fields, $data, $isDatatable = true, $showActions 
     foreach ($data as $row) {
         $primary_fields_text = "";
         foreach ($fields as $field => $config) {
-            $primary_fields_text .= isset ($config["primary"]) && $config["primary"] ? "&{$field}={$row[$field]}" : "";
+            $primary_fields_text .= isset($config["primary"]) && $config["primary"] ? "&{$field}={$row[$field]}" : "";
         }
 
         echo "<tr>";
@@ -243,14 +243,14 @@ function renderTable($module, $fields, $data, $isDatatable = true, $showActions 
                 $row[$field] = $config['options'][$row[$field]];
             }
             $text = "<td>{$row[$field]}</td>";
-            if (isset ($config['foreign'])) {
+            if (isset($config['foreign'])) {
                 $inner_text = substr(substr($text, 0, -5), 4);
                 if ($inner_text == "" || $inner_text == "0") {
                     $text = "<td>Nenhum</td>";
                 } else {
 
                     $foreign = $config['foreign'];
-                    $highlighted_columns = isset ($foreign['highlighted_columns']) ? $foreign['highlighted_columns'] : [];
+                    $highlighted_columns = isset($foreign['highlighted_columns']) ? $foreign['highlighted_columns'] : [];
                     $highlighted_text = "";
                     $q = "SELECT " . implode(", ", $highlighted_columns) . " FROM $foreign[module] WHERE $foreign[column] = {$row[$field]}";
                     $foreign_row = my_query($q)[0];
@@ -289,7 +289,7 @@ if ($mode == 'handle_form') {
     $texto_sql_primary_keys = "";
     if ($action !== 'add') {
         foreach ($modules[$module]['columns'] as $field => $config) {
-            if (isset ($config['primary']) && $config['primary']) {
+            if (isset($config['primary']) && $config['primary']) {
                 $texto_sql_primary_keys .= "$field = '{$arrConfig['conn']->real_escape_string($_GET[$field])}' AND ";
             }
         }
@@ -302,7 +302,7 @@ if ($mode == 'handle_form') {
         $langs_data = array();
         foreach ($modules[$module]['columns'] as $field => $config) {
             if ($config['type'] == 'checkbox') {
-                if (isset ($_POST[$field])) {
+                if (isset($_POST[$field])) {
                     $_POST[$field] = 1;
                 } else {
                     $_POST[$field] = 0;
@@ -312,6 +312,12 @@ if ($mode == 'handle_form') {
                     $_POST[$field] = str_replace(
                         $url_site_local,
                         $url_site_escola,
+                        $_POST[$field]
+                    );
+                } else if ($arrConfig['url_site'] == $url_site_prod) {
+                    $_POST[$field] = str_replace(
+                        $url_site_local,
+                        $url_site_prod,
                         $_POST[$field]
                     );
                 }
@@ -324,7 +330,7 @@ if ($mode == 'handle_form') {
             } else if ($config['type'] == 'password') {
                 $_POST[$field] = password_hash($_POST[$field], PASSWORD_DEFAULT);
             } else if ($config['type'] == 'image') {
-                if (isset ($_FILES[$field]) && $_FILES[$field]['error'] == 0) {
+                if (isset($_FILES[$field]) && $_FILES[$field]['error'] == 0) {
                     $file = $_FILES[$field];
                     $filename = $file['name'];
                     $fileTmpName = $file['tmp_name'];
@@ -358,8 +364,8 @@ if ($mode == 'handle_form') {
                 }
             }
 
-            if (!isset ($config['editable']) || $config['editable']) {
-                if (isset ($config['lang_dependent']) && $config['lang_dependent']) {
+            if (!isset($config['editable']) || $config['editable']) {
+                if (isset($config['lang_dependent']) && $config['lang_dependent']) {
                     foreach ($_POST[$field] as $lang => $value) {
                         $langs_data[$lang][$field] = $arrConfig['conn']->real_escape_string($value);
                     }
@@ -374,7 +380,7 @@ if ($mode == 'handle_form') {
         $last_id = my_query($sql_normal . $sql_normal_values);
 
         if ($last_id) {
-            if (isset ($config['editable']) && $modules[$module]['supports_lang']) {
+            if (isset($config['editable']) && $modules[$module]['supports_lang']) {
                 foreach ($langs_data as $lang => $data) {
                     $sql_lang = "INSERT INTO {$module}_lang (id, lang, ";
                     $sql_lang_values = "VALUES ($last_id, '$lang', ";
@@ -389,7 +395,7 @@ if ($mode == 'handle_form') {
             }
         }
 
-        if (isset ($config['editable']) && $modules[$module]['supports_lang']) {
+        if (isset($config['editable']) && $modules[$module]['supports_lang']) {
             foreach ($langs_data as $lang => $data) {
                 $sql_lang = "INSERT INTO {$module}_lang (";
                 $sql_lang_values = "VALUES (";
@@ -421,7 +427,7 @@ if ($mode == 'handle_form') {
         $langs_data = array();
         foreach ($modules[$module]['columns'] as $field => $config) {
             if ($config['type'] == 'checkbox') {
-                if (isset ($_POST[$field])) {
+                if (isset($_POST[$field])) {
                     $_POST[$field] = 1;
                 } else {
                     $_POST[$field] = 0;
@@ -439,6 +445,12 @@ if ($mode == 'handle_form') {
                         $url_site_escola,
                         $_POST[$field]
                     );
+                } else if ($arrConfig['url_site'] == $url_site_prod) {
+                    $_POST[$field] = str_replace(
+                        $url_site_local,
+                        $url_site_prod,
+                        $_POST[$field]
+                    );
                 }
             } else if ($config['type'] == 'datetime') {
                 $_POST[$field] = date('Y-m-d H:i:s', strtotime($_POST[$field]));
@@ -447,7 +459,7 @@ if ($mode == 'handle_form') {
             } else if ($config['type'] == 'time') {
                 $_POST[$field] = date('H:i:s', strtotime($_POST[$field]));
             } else if ($config['type'] == 'image') {
-                if (isset ($_FILES[$field]) && $_FILES[$field]['error'] == 0) {
+                if (isset($_FILES[$field]) && $_FILES[$field]['error'] == 0) {
                     $file = $_FILES[$field];
                     $filename = $file['name'];
                     $fileTmpName = $file['tmp_name'];
@@ -481,8 +493,8 @@ if ($mode == 'handle_form') {
                 }
             }
 
-            if (!isset ($config['editable']) || $config['editable']) {
-                if (isset ($config['lang_dependent']) && $config['lang_dependent']) {
+            if (!isset($config['editable']) || $config['editable']) {
+                if (isset($config['lang_dependent']) && $config['lang_dependent']) {
                     foreach ($_POST[$field] as $lang => $value) {
                         $langs_data[$lang][$field] = $arrConfig['conn']->real_escape_string($value);
                     }
@@ -491,7 +503,7 @@ if ($mode == 'handle_form') {
                 }
             }
         }
-        if (isset ($config['editable']) && $modules[$module]['supports_lang']) {
+        if (isset($config['editable']) && $modules[$module]['supports_lang']) {
             foreach ($langs_data as $lang => $data) {
                 foreach ($data as $field => $value) {
                     my_query("UPDATE {$module}_lang SET $field = '$value' WHERE $texto_sql_primary_keys AND lang = '$lang'");
@@ -501,7 +513,7 @@ if ($mode == 'handle_form') {
 
         $new_primary_fields = "";
         foreach ($modules[$module]['columns'] as $field => $config) {
-            if (isset ($config['primary']) && $config['primary']) {
+            if (isset($config['primary']) && $config['primary']) {
                 $new_primary_fields .= "$field=" . $_GET[$field] . "&";
             }
         }
@@ -510,7 +522,7 @@ if ($mode == 'handle_form') {
     }
     if ($action == 'delete') {
         my_query("DELETE FROM $module WHERE $texto_sql_primary_keys");
-        if (isset ($config['editable']) && $modules[$module]['supports_lang']) {
+        if (isset($config['editable']) && $modules[$module]['supports_lang']) {
             my_query("DELETE FROM {$module}_lang WHERE $texto_sql_primary_keys");
         }
 
@@ -525,7 +537,7 @@ if ($mode == 'handle_form') {
 
 <main>
     <?php
-    if (isset ($_GET['notice'])) {
+    if (isset($_GET['notice'])) {
         $notice = $_GET['notice'];
         if ($notice == 1) {
             echo "<div class='alert alert-success' role='alert'>Registo salvo com sucesso!</div>";
@@ -542,13 +554,13 @@ if ($mode == 'handle_form') {
         case 'update':
             $primary_and_text_sql = "";
             foreach ($modules[$module]['columns'] as $field => $config) {
-                if (isset ($config['primary']) && $config['primary']) {
+                if (isset($config['primary']) && $config['primary']) {
                     $primary_and_text_sql .= "$field = '{$_GET[$field]}' AND";
                 }
             }
             $primary_and_text_sql = substr($primary_and_text_sql, 0, -3);
 
-            if (isset ($config['editable']) && $modules[$module]['supports_lang']) {
+            if (isset($config['editable']) && $modules[$module]['supports_lang']) {
                 $data = my_query("SELECT * FROM {$module}_lang WHERE $primary_and_text_sql");
                 $mainData = my_query("SELECT * FROM $module WHERE $primary_and_text_sql LIMIT 1");
 
@@ -573,7 +585,7 @@ if ($mode == 'handle_form') {
             renderForm($module, 'update', $modules[$module]['columns'], $arrConfig['langs'], $data[0]);
             break;
         case 'list':
-            if (isset ($modules[$module]['db_pagination']) && $modules[$module]['db_pagination']) {
+            if (isset($modules[$module]['db_pagination']) && $modules[$module]['db_pagination']) {
                 echo '
                 <table class="table table-striped" id="datatablesSimpleServerSidePagination"></table>
                 ';
@@ -746,10 +758,10 @@ if ($mode == 'handle_form') {
                   });
                 </script>';
             } else {
-                if (isset ($config['editable']) && $modules[$module]['supports_lang']) {
+                if (isset($config['editable']) && $modules[$module]['supports_lang']) {
                     $on_text = "";
                     foreach ($modules[$module]['columns'] as $field => $config) {
-                        if (isset ($config['primary']) && $config['primary']) {
+                        if (isset($config['primary']) && $config['primary']) {
                             $on_text .= "A.$field = B.$field AND ";
                         }
                     }

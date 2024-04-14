@@ -3,7 +3,7 @@ include_once 'include/config.inc.php';
 
 function selecionar_categorias_faq($pai = 0)
 {
-  global $arrConfig, $url_site_escola, $url_site_local;
+  global $arrConfig, $url_site_escola, $url_site_local, $url_site_prod;
   $categorias = my_query("SELECT id, icone, nome, id_pai FROM faq_categorias WHERE ativo = 1 AND id_pai = $pai");
   $arr = [];
   foreach ($categorias as $categoria) {
@@ -13,6 +13,14 @@ function selecionar_categorias_faq($pai = 0)
         $paginas[$key]['conteudo'] = str_replace(
           $url_site_local,
           $url_site_escola,
+          $pagina['conteudo']
+        );
+      }
+    } else if ($arrConfig['url_site'] == $url_site_prod) {
+      foreach ($paginas as $key => $pagina) {
+        $paginas[$key]['conteudo'] = str_replace(
+          $url_site_local,
+          $url_site_prod,
           $pagina['conteudo']
         );
       }
