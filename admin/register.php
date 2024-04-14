@@ -1,6 +1,8 @@
 <?php
 include "../include/config.inc.php";
 
+redirect($arrConfig['url_site'] . '/admin/login.php');
+
 if (isset($_COOKIE['id']) && $_COOKIE['id'] != '' || isset($_SESSION['id']) && $_SESSION['id'] != '') {
     redirect($arrConfig['url_site'] . '/admin/index.php');
 }

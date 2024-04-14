@@ -67,10 +67,10 @@ if (isset($_COOKIE['id']) && $_COOKIE['id'] != '' || isset($_SESSION['id']) && $
                                         </div>
                                     </form>
                                 </div>
-                                <div class="card-footer text-center py-3">
+                                <!-- <div class="card-footer text-center py-3">
                                     <div class="small"><a href="register.php">Ainda não tens uma conta? Criar conta</a>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
