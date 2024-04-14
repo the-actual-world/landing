@@ -100,53 +100,52 @@ include_once 'get/userinfo.php';
     });
 
     function replaceHTMLWYSIWYG(to_replace, values) {
-      if (values.includes("<?php echo $arrConfig['url_site'] ?>")) {
-        var html = $('textarea.wysiwyg').summernote('code');
-        foreach(var new_value in values) {
-          if (new_value != "<?php echo $arrConfig['url_site'] ?>") {
-            continue;
-            html = html.replace(new RegExp(to_replace, 'g'), new_value);
-          }
+      var html = $('textarea.wysiwyg').summernote('code');
+      foreach(var new_value in values) {
+        if (new_value != "<?php echo $arrConfig['url_site'] ?>") {
+          continue;
+          html = html.replace(new RegExp(to_replace, 'g'), new_value);
         }
-        $('textarea.wysiwyg').summernote('code', html);
       }
+      $('textarea.wysiwyg').summernote('code', html);
+    }
 
-      $(document).ready(function () {
-        $('textarea.wysiwyg').summernote({
-          callbacks: {
-            onImageUpload: function (files) {
-              var formData = new FormData();
-              formData.append('file', files[0]);
-              $.ajax({
-                url: '<?php echo $arrConfig['url_site'] . '/admin/include/image-upload.php'; ?>',
-                method: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (data) {
-                  console.log("DATA: " + JSON.stringify(data));
-                  var image = JSON.parse(data);
-                  if (image.url) {
-                    let url = image.url;
-                    if ("<?php echo $arrConfig['url_site'] ?>" == "<?php echo $url_site_escola ?>") {
-                      url = url.replace("<?php echo $url_site_local ?>", "<?php echo $url_site_escola ?>");
-                    } else if ("<?php echo $arrConfig['url_site'] ?>" == "<?php echo $url_site_prod ?>") {
-                      url = url.replace("<?php echo $url_site_local ?>", "<?php echo $url_site_prod ?>");
-                    }
-                    var imageNode = $('<img>').attr('src', url);
-                    $('textarea.wysiwyg').summernote('insertNode', imageNode[0]);
-                  } else {
-                    alert('Error uploading image: ' + image.error);
+    $(document).ready(function () {
+      $('textarea.wysiwyg').summernote({
+        callbacks: {
+          onImageUpload: function (files) {
+            var formData = new FormData();
+            formData.append('file', files[0]);
+            $.ajax({
+              url: '<?php echo $arrConfig['url_site'] . '/admin/include/image-upload.php'; ?>',
+              method: 'POST',
+              data: formData,
+              processData: false,
+              contentType: false,
+              success: function (data) {
+                console.log("DATA: " + JSON.stringify(data));
+                var image = JSON.parse(data);
+                if (image.url) {
+                  let url = image.url;
+                  if ("<?php echo $arrConfig['url_site'] ?>" == "<?php echo $url_site_escola ?>") {
+                    url = url.replace("<?php echo $url_site_local ?>", "<?php echo $url_site_escola ?>");
+                  } else if ("<?php echo $arrConfig['url_site'] ?>" == "<?php echo $url_site_prod ?>") {
+                    url = url.replace("<?php echo $url_site_local ?>", "<?php echo $url_site_prod ?>");
                   }
+                  var imageNode = $('<img>').attr('src', url);
+                  $('textarea.wysiwyg').summernote('insertNode', imageNode[0]);
+                } else {
+                  alert('Error uploading image: ' + image.error);
                 }
-              });
-            },
-            onInit: function () {
-              replaceHTMLWYSIWYG('<?php echo $url_site_local ?>', [<?php echo join(", ", $not_localhost_urls) ?>]);
-            },
-          }
-        });
+              }
+            });
+          },
+          onInit: function () {
+            replaceHTMLWYSIWYG('<?php echo $url_site_local ?>', [<?php echo join(", ", $not_localhost_urls) ?>]);
+          },
+        }
       });
+    });
   </script>
 </head>
 
