@@ -101,12 +101,11 @@ include_once 'get/userinfo.php';
 
     function replaceHTMLWYSIWYG(to_replace, values) {
       var html = $('textarea.wysiwyg').summernote('code');
-      foreach(var new_value in values) {
-        if (new_value != "<?php echo $arrConfig['url_site'] ?>") {
-          continue;
+      values.map(new_value => {
+        if (new_value == "<?php echo $arrConfig['url_site'] ?>") {
           html = html.replace(new RegExp(to_replace, 'g'), new_value);
         }
-      }
+      });
       $('textarea.wysiwyg').summernote('code', html);
     }
 
@@ -141,7 +140,7 @@ include_once 'get/userinfo.php';
             });
           },
           onInit: function () {
-            replaceHTMLWYSIWYG('<?php echo $url_site_local ?>', [<?php echo join(", ", $not_localhost_urls) ?>]);
+            replaceHTMLWYSIWYG('<?php echo $url_site_local ?>', ['<?php echo join("', '", $not_localhost_urls) ?>']);
           },
         }
       });
