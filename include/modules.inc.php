@@ -1,0 +1,700 @@
+<?php
+
+$formats = [
+  'date' => 'd/m/Y',
+  'datetime' => 'd/m/Y H:i:s',
+  'time' => 'H:i:s'
+];
+
+// o meu esquema para os módulos é o seguinte:
+$example_modules_structure = [
+  'table_name' => [
+    'name' => 'Nome da Tabela',
+    'icon' => 'fa fa-icon',
+    'supports_lang' => false, // optional, default is false
+    'db_pagination' => false, // optional, default is false
+    'columns' => [
+      'column_name' => [
+        'name' => 'Nome da Coluna', // required
+        'type' => 'text', // text, number, date, datetime, time, textarea, checkbox, hidden, image, decimal, html, code, radio, select, password
+        'required' => true, // optional, default is false
+        'editable' => true, // optional, default is true
+        'primary' => true, // optional, default is false
+        'foreign' => [
+          'module' => 'table_name',
+          'column' => 'column_name',
+          'highlighted_columns' => ['column_name', 'column_name'] // optional
+        ], // optional
+        'options' => [
+          'option1' => 'Option 1',
+          'option2' => 'Option 2'
+        ] // optional
+      ]
+    ]
+  ]
+];
+
+$modules = [
+  'paginas' => [
+    'name' => 'Páginas',
+    'icon' => 'fa fa-file',
+    'supports_lang' => true,
+    'columns' => [
+      'url' => [
+        'name' => 'URL',
+        'primary' => true,
+        'type' => 'text',
+      ],
+      'titulo' => [
+        'name' => 'Título',
+        'type' => 'text',
+      ],
+      'conteudo' => [
+        'name' => 'Conteúdo',
+        'type' => 'code',
+      ],
+      'ativo' => [
+        'name' => 'Ativo',
+        'type' => 'checkbox',
+        'required' => false
+      ]
+    ]
+  ],
+  'conteudo' => [
+    'name' => 'Conteúdo',
+    'icon' => 'fa fa-scroll',
+    'supports_lang' => false,
+    'columns' => [
+      'id' => [
+        'name' => 'ID',
+        'primary' => true,
+        'type' => 'hidden',
+      ],
+      'slug' => [
+        'name' => 'Slug',
+        'type' => 'text',
+      ],
+      'imagem' => [
+        'name' => 'Imagem',
+        'type' => 'image',
+        'folder' => 'conteudo',
+        'required' => false
+      ],
+      'titulo' => [
+        'name' => 'Título',
+        'type' => 'text',
+      ],
+      'conteudo' => [
+        'name' => 'Conteúdo',
+        'type' => 'html',
+      ],
+      'ativo' => [
+        'name' => 'Ativo',
+        'type' => 'checkbox',
+        'required' => false
+      ]
+    ]
+  ],
+  'menu' => [
+    'name' => 'Menu',
+    'icon' => 'fa fa-bars',
+    'supports_lang' => false,
+    'columns' => [
+      'id' => [
+        'name' => 'ID',
+        'primary' => true,
+        'type' => 'hidden',
+      ],
+      'url' => [
+        'name' => 'URL',
+        'type' => 'text',
+        'required' => false
+      ],
+      'titulo' => [
+        'name' => 'Título',
+        'type' => 'text',
+      ],
+      'id_pai' => [
+        'name' => 'ID do Menu Pai',
+        'type' => 'number',
+        'foreign' => [
+          'module' => 'menu',
+          'column' => 'id',
+          'highlighted_columns' => ['titulo'],
+        ]
+      ],
+      'ordem' => [
+        'name' => 'Ordem',
+        'type' => 'number',
+      ],
+      'ativo' => [
+        'name' => 'Ativo',
+        'type' => 'checkbox',
+        'required' => false
+      ],
+    ]
+  ],
+  'atualizacoes' => [
+    'name' => 'Atualizações',
+    'icon' => 'fa fa-newspaper',
+    'supports_lang' => false,
+    'columns' => [
+      'id' => [
+        'name' => 'ID',
+        'primary' => true,
+        'editable' => false,
+        'type' => 'hidden',
+        'required' => false
+      ],
+      'imagem' => [
+        'name' => 'Imagem',
+        'type' => 'image',
+        'folder' => 'atualizacoes',
+        'required' => false
+      ],
+      'titulo' => [
+        'name' => 'Título',
+        'type' => 'text',
+      ],
+      'conteudo' => [
+        'name' => 'Conteúdo',
+        'type' => 'html',
+      ],
+      'tipo' => [
+        'name' => 'Tipo',
+        'type' => 'radio',
+        'options' => [
+          'correcao' => 'Correção',
+          'melhoria' => 'Melhoria',
+          'nova-funcionalidade' => 'Nova Funcionalidade'
+        ]
+      ],
+      'data' => [
+        'name' => 'Data',
+        'type' => 'date',
+      ],
+      'ativo' => [
+        'name' => 'Ativo',
+        'type' => 'checkbox',
+        'required' => false
+      ]
+    ]
+  ],
+  'faq' => [
+    'name' => 'FAQ',
+    'icon' => 'fa fa-question-circle',
+    'supports_lang' => false,
+    'columns' => [
+      'id' => [
+        'name' => 'ID',
+        'primary' => true,
+        'editable' => false,
+        'type' => 'hidden',
+        'required' => false
+      ],
+      'id_categoria' => [
+        'name' => 'ID da Categoria',
+        'type' => 'number',
+        'foreign' => [
+          'module' => 'faq_categorias',
+          'column' => 'id',
+          'highlighted_columns' => ['nome'],
+        ]
+      ],
+      'titulo' => [
+        'name' => 'Título',
+        'type' => 'text',
+      ],
+      'conteudo' => [
+        'name' => 'Conteúdo',
+        'type' => 'html',
+      ],
+      'ativo' => [
+        'name' => 'Ativo',
+        'type' => 'checkbox',
+        'required' => false
+      ]
+    ]
+  ],
+  'faq_categorias' => [
+    'name' => 'Categorias das FAQ',
+    'icon' => 'fa fa-list',
+    'supports_lang' => false,
+    'columns' => [
+      'id' => [
+        'name' => 'ID',
+        'primary' => true,
+        'editable' => false,
+        'type' => 'hidden',
+        'required' => false
+      ],
+      'icone' => [
+        'name' => 'Ícone',
+        'type' => 'text',
+      ],
+      'nome' => [
+        'name' => 'Nome',
+        'type' => 'text',
+      ],
+      'id_pai' => [
+        'name' => 'ID da Categoria Pai',
+        'type' => 'number',
+        'foreign' => [
+          'module' => 'faq_categorias',
+          'column' => 'id',
+          'highlighted_columns' => ['nome'],
+        ]
+      ],
+      'ativo' => [
+        'name' => 'Ativo',
+        'type' => 'checkbox',
+        'required' => false
+      ]
+    ]
+  ],
+  'logs' => [
+    'name' => 'Logs',
+    'icon' => 'fa fa-history',
+    'supports_lang' => false,
+    'db_pagination' => true,
+    'columns' => [
+      'id' => [
+        'name' => 'ID',
+        'primary' => true,
+        'editable' => false,
+        'type' => 'hidden',
+        'required' => false
+      ],
+      'pagina' => [
+        'name' => 'Página',
+        'type' => 'text',
+      ],
+      'modulo' => [
+        'name' => 'Módulo',
+        'type' => 'text',
+      ],
+      'acao' => [
+        'name' => 'Ação',
+        'type' => 'text',
+      ],
+      'id_utilizador' => [
+        'name' => 'ID do Utilizador',
+        'type' => 'number',
+        'foreign' => [
+          'module' => 'utilizadores',
+          'column' => 'id',
+          'highlighted_columns' => ['primeiro_nome', 'ultimo_nome', 'email'] // optional
+        ]
+      ],
+      'endereco_ip' => [
+        'name' => 'Endereço de IP',
+        'type' => 'text',
+      ],
+      'id_sessao' => [
+        'name' => 'ID da Sessão',
+        'type' => 'text',
+      ],
+      'de_onde' => [
+        'name' => 'De Onde',
+        'type' => 'text',
+      ],
+      'data' => [
+        'name' => 'Data',
+        'type' => 'datetime',
+      ]
+    ]
+  ],
+  'patrocinadores' => [
+    'name' => 'Patrocinadores',
+    'icon' => 'fa fa-handshake',
+    'supports_lang' => false,
+    'columns' => [
+      'id' => [
+        'name' => 'ID',
+        'primary' => true,
+        'type' => 'hidden',
+      ],
+      'nome' => [
+        'name' => 'Nome',
+        'type' => 'text',
+      ],
+      'imagem' => [
+        'name' => 'Imagem',
+        'type' => 'image',
+        'folder' => 'patrocinadores',
+        'required' => false
+      ],
+      'url' => [
+        'name' => 'URL',
+        'type' => 'text',
+      ],
+      'ordem' => [
+        'name' => 'Ordem',
+        'type' => 'number',
+      ],
+      'ativo' => [
+        'name' => 'Ativo',
+        'type' => 'checkbox',
+        'required' => false
+      ]
+    ]
+  ],
+  'produtos' => [
+    'name' => 'Produtos',
+    'icon' => 'fa fa-box',
+    'supports_lang' => false,
+    'columns' => [
+      'id' => [
+        'name' => 'ID',
+        'primary' => true,
+        'editable' => false,
+        'type' => 'hidden',
+        'required' => false
+      ],
+      'nome' => [
+        'name' => 'Nome',
+        'type' => 'text',
+      ],
+      'descricao' => [
+        'name' => 'Descrição',
+        'type' => 'textarea',
+      ],
+      'preco' => [
+        'name' => 'Preço',
+        'type' => 'decimal',
+      ],
+      'ativo' => [
+        'name' => 'Ativo',
+        'type' => 'checkbox',
+        'required' => false
+      ]
+    ]
+  ],
+  'produtos_caracteristicas' => [
+    'name' => 'Características dos Produtos',
+    'icon' => 'fa fa-list',
+    'supports_lang' => false,
+    'columns' => [
+      'id' => [
+        'name' => 'ID',
+        'primary' => true,
+        'editable' => false,
+        'type' => 'hidden',
+        'required' => false
+      ],
+      'id_produto' => [
+        'name' => 'ID do Produto',
+        'type' => 'number',
+        'foreign' => [
+          'module' => 'produtos',
+          'column' => 'id',
+          'highlighted_columns' => ['nome', 'preco'],
+        ]
+      ],
+      'ordem' => [
+        'name' => 'Ordem',
+        'type' => 'number',
+      ],
+      'nome' => [
+        'name' => 'Nome',
+        'type' => 'text',
+      ],
+      'valor' => [
+        'name' => 'Valor',
+        'type' => 'text',
+      ],
+      'ativo' => [
+        'name' => 'Ativo',
+        'type' => 'checkbox',
+        'required' => false
+      ]
+    ]
+  ],
+  'produtos_imagens' => [
+    'name' => 'Imagens dos Produtos',
+    'icon' => 'fa fa-image',
+    'supports_lang' => false,
+    'columns' => [
+      'id' => [
+        'name' => 'ID',
+        'primary' => true,
+        'editable' => false,
+        'type' => 'hidden',
+        'required' => false
+      ],
+      'id_produto' => [
+        'name' => 'ID do Produto',
+        'type' => 'number',
+        'foreign' => [
+          'module' => 'produtos',
+          'column' => 'id',
+          'highlighted_columns' => ['nome', 'preco'],
+        ]
+      ],
+      'ordem' => [
+        'name' => 'Ordem',
+        'type' => 'number',
+      ],
+      'imagem' => [
+        'name' => 'Imagem',
+        'type' => 'image',
+        'folder' => 'produtos',
+        'required' => false
+      ],
+      'ativo' => [
+        'name' => 'Ativo',
+        'type' => 'checkbox',
+        'required' => false
+      ]
+    ]
+  ],
+  'testemunhos' => [
+    'name' => 'Testemunhos',
+    'icon' => 'fa fa-quote-left',
+    'supports_lang' => false,
+    'columns' => [
+      'id' => [
+        'name' => 'ID',
+        'primary' => true,
+        'editable' => false,
+        'type' => 'hidden',
+        'required' => false
+      ],
+      'nome_pessoa' => [
+        'name' => 'Nome da Pessoa',
+        'type' => 'text',
+      ],
+      'imagem_pessoa' => [
+        'name' => 'Imagem da Pessoa',
+        'type' => 'image',
+        'folder' => 'testemunhos',
+        'required' => false
+      ],
+      'cargo_pessoa' => [
+        'name' => 'Cargo da Pessoa',
+        'type' => 'text',
+      ],
+      'titulo' => [
+        'name' => 'Título',
+        'type' => 'text',
+      ],
+      'conteudo' => [
+        'name' => 'Conteúdo',
+        'type' => 'textarea',
+      ],
+      'estrelas' => [
+        'name' => 'Estrelas',
+        'type' => 'number',
+      ],
+      'ativo' => [
+        'name' => 'Ativo',
+        'type' => 'checkbox',
+        'required' => false
+      ]
+    ]
+  ],
+  'funcionalidades' => [
+    'name' => 'Funcionalidades',
+    'icon' => 'fa fa-cogs',
+    'supports_lang' => false,
+    'columns' => [
+      'id' => [
+        'name' => 'ID',
+        'primary' => true,
+        'editable' => false,
+        'type' => 'hidden',
+        'required' => false
+      ],
+      'icone' => [
+        'name' => 'Ícone',
+        'type' => 'text',
+      ],
+      'titulo' => [
+        'name' => 'Título',
+        'type' => 'text',
+      ],
+      'descricao' => [
+        'name' => 'Conteúdo',
+        'type' => 'textarea',
+      ],
+      'ordem' => [
+        'name' => 'Ordem',
+        'type' => 'number',
+      ],
+      'ativo' => [
+        'name' => 'Ativo',
+        'type' => 'checkbox',
+        'required' => false
+      ]
+    ]
+  ],
+  'passos' => [
+    'name' => 'Passos',
+    'icon' => 'fa fa-list-ol',
+    'supports_lang' => false,
+    'columns' => [
+      'id' => [
+        'name' => 'ID',
+        'primary' => true,
+        'editable' => false,
+        'type' => 'hidden',
+        'required' => false
+      ],
+      'titulo' => [
+        'name' => 'Título',
+        'type' => 'text',
+      ],
+      'descricao' => [
+        'name' => 'Descrição',
+        'type' => 'html',
+      ],
+      'ordem' => [
+        'name' => 'Ordem',
+        'type' => 'number',
+      ],
+      'ativo' => [
+        'name' => 'Ativo',
+        'type' => 'checkbox',
+        'required' => false
+      ]
+    ]
+  ],
+  'equipa' => [
+    'name' => 'Equipa',
+    'icon' => 'fa fa-users',
+    'supports_lang' => false,
+    'columns' => [
+      'id' => [
+        'name' => 'ID',
+        'primary' => true,
+        'type' => 'hidden',
+      ],
+      'nome' => [
+        'name' => 'Nome',
+        'type' => 'text',
+      ],
+      'imagem' => [
+        'name' => 'Imagem',
+        'type' => 'image',
+        'folder' => 'equipa',
+        'required' => false
+      ],
+      'cargo' => [
+        'name' => 'Cargo',
+        'type' => 'text',
+      ],
+      'ordem' => [
+        'name' => 'Ordem',
+        'type' => 'number',
+      ],
+      'ativo' => [
+        'name' => 'Ativo',
+        'type' => 'checkbox',
+        'required' => false
+      ]
+    ]
+  ],
+  'seccoes_missao' => [
+    'name' => 'Secções de A Nossa Missão',
+    'icon' => 'fa fa-bullseye',
+    'supports_lang' => false,
+    'columns' => [
+      'id' => [
+        'name' => 'ID',
+        'primary' => true,
+        'type' => 'hidden',
+      ],
+      'titulo' => [
+        'name' => 'Título',
+        'type' => 'text',
+      ],
+      'descricao' => [
+        'name' => 'Descrição',
+        'type' => 'textarea',
+      ],
+      'ordem' => [
+        'name' => 'Ordem',
+        'type' => 'number',
+      ],
+      'ativo' => [
+        'name' => 'Ativo',
+        'type' => 'checkbox',
+        'required' => false
+      ],
+    ]
+  ],
+  'mensagens' => [
+    'name' => 'Mensagens',
+    'icon' => 'fa fa-envelope',
+    'supports_lang' => false,
+    'columns' => [
+      'id' => [
+        'name' => 'ID',
+        'primary' => true,
+        'editable' => false,
+        'type' => 'hidden',
+        'required' => false
+      ],
+      'nome' => [
+        'name' => 'Nome',
+        'type' => 'text',
+      ],
+      'email' => [
+        'name' => 'Email',
+        'type' => 'text',
+      ],
+      'titulo' => [
+        'name' => 'Título',
+        'type' => 'text',
+      ],
+      'mensagem' => [
+        'name' => 'Mensagem',
+        'type' => 'textarea',
+      ],
+      'data' => [
+        'name' => 'Data',
+        'type' => 'datetime',
+      ],
+      'ativo' => [
+        'name' => 'Ativo',
+        'type' => 'checkbox',
+        'required' => false
+      ]
+    ]
+  ],
+  'utilizadores' => [
+    'name' => 'Utilizadores',
+    'icon' => 'fa fa-user',
+    'supports_lang' => false,
+    'columns' => [
+      'id' => [
+        'name' => 'ID',
+        'primary' => true,
+        'editable' => false,
+        'type' => 'hidden',
+        'required' => false
+      ],
+      'email' => [
+        'name' => 'Email',
+        'type' => 'text',
+      ],
+      'primeiro_nome' => [
+        'name' => 'Primeiro Nome',
+        'type' => 'text',
+      ],
+      'ultimo_nome' => [
+        'name' => 'Último Nome',
+        'type' => 'text',
+      ],
+      'password' => [
+        'name' => 'Senha',
+        'type' => 'password',
+      ],
+      'ativo' => [
+        'name' => 'Ativo',
+        'type' => 'checkbox',
+        'required' => false
+      ]
+    ]
+  ],
+];
