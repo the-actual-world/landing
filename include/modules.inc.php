@@ -36,7 +36,7 @@ $example_modules_structure = [
 
 $modules = [
   'paginas' => [
-    'name' => 'Páginas',
+    'name' => t('Pages'),
     'icon' => 'fa fa-file',
     'supports_lang' => true,
     'columns' => [
@@ -61,7 +61,7 @@ $modules = [
     ]
   ],
   'conteudo' => [
-    'name' => 'Conteúdo',
+    'name' => t('Content'),
     'icon' => 'fa fa-scroll',
     'supports_lang' => false,
     'columns' => [
@@ -96,7 +96,7 @@ $modules = [
     ]
   ],
   'menu' => [
-    'name' => 'Menu',
+    'name' => t('Menu'),
     'icon' => 'fa fa-bars',
     'supports_lang' => false,
     'columns' => [
@@ -135,7 +135,7 @@ $modules = [
     ]
   ],
   'atualizacoes' => [
-    'name' => 'Atualizações',
+    'name' => t('Updates'),
     'icon' => 'fa fa-newspaper',
     'supports_lang' => false,
     'columns' => [
@@ -181,7 +181,7 @@ $modules = [
     ]
   ],
   'faq' => [
-    'name' => 'FAQ',
+    'name' => t('FAQ'),
     'icon' => 'fa fa-question-circle',
     'supports_lang' => false,
     'columns' => [
@@ -217,7 +217,7 @@ $modules = [
     ]
   ],
   'faq_categorias' => [
-    'name' => 'Categorias das FAQ',
+    'name' => t('FAQCategories'),
     'icon' => 'fa fa-list',
     'supports_lang' => false,
     'columns' => [
@@ -253,7 +253,7 @@ $modules = [
     ]
   ],
   'logs' => [
-    'name' => 'Logs',
+    'name' => t('Logs'),
     'icon' => 'fa fa-history',
     'supports_lang' => false,
     'db_pagination' => true,
@@ -305,7 +305,7 @@ $modules = [
     ]
   ],
   'patrocinadores' => [
-    'name' => 'Patrocinadores',
+    'name' => t('Sponsors'),
     'icon' => 'fa fa-handshake',
     'supports_lang' => false,
     'columns' => [
@@ -340,7 +340,7 @@ $modules = [
     ]
   ],
   'produtos' => [
-    'name' => 'Produtos',
+    'name' => t('Products'),
     'icon' => 'fa fa-box',
     'supports_lang' => false,
     'columns' => [
@@ -371,7 +371,7 @@ $modules = [
     ]
   ],
   'produtos_caracteristicas' => [
-    'name' => 'Características dos Produtos',
+    'name' => t('ProductAttributes'),
     'icon' => 'fa fa-list',
     'supports_lang' => false,
     'columns' => [
@@ -411,7 +411,7 @@ $modules = [
     ]
   ],
   'produtos_imagens' => [
-    'name' => 'Imagens dos Produtos',
+    'name' => t('ProductImages'),
     'icon' => 'fa fa-image',
     'supports_lang' => false,
     'columns' => [
@@ -449,7 +449,7 @@ $modules = [
     ]
   ],
   'testemunhos' => [
-    'name' => 'Testemunhos',
+    'name' => t('Testimonials'),
     'icon' => 'fa fa-quote-left',
     'supports_lang' => false,
     'columns' => [
@@ -494,7 +494,7 @@ $modules = [
     ]
   ],
   'funcionalidades' => [
-    'name' => 'Funcionalidades',
+    'name' => t("Features"),
     'icon' => 'fa fa-cogs',
     'supports_lang' => false,
     'columns' => [
@@ -529,7 +529,7 @@ $modules = [
     ]
   ],
   'passos' => [
-    'name' => 'Passos',
+    'name' => t('Steps'),
     'icon' => 'fa fa-list-ol',
     'supports_lang' => false,
     'columns' => [
@@ -560,7 +560,7 @@ $modules = [
     ]
   ],
   'equipa' => [
-    'name' => 'Equipa',
+    'name' => t('Team'),
     'icon' => 'fa fa-users',
     'supports_lang' => false,
     'columns' => [
@@ -595,7 +595,7 @@ $modules = [
     ]
   ],
   'seccoes_missao' => [
-    'name' => 'Secções de A Nossa Missão',
+    'name' => t('OurMissionSections'),
     'icon' => 'fa fa-bullseye',
     'supports_lang' => false,
     'columns' => [
@@ -624,7 +624,7 @@ $modules = [
     ]
   ],
   'mensagens' => [
-    'name' => 'Mensagens',
+    'name' => t('Messages'),
     'icon' => 'fa fa-envelope',
     'supports_lang' => false,
     'columns' => [
@@ -663,7 +663,7 @@ $modules = [
     ]
   ],
   'utilizadores' => [
-    'name' => 'Utilizadores',
+    'name' => t('Users'),
     'icon' => 'fa fa-user',
     'supports_lang' => false,
     'columns' => [

@@ -308,10 +308,10 @@ if ($mode == 'handle_form') {
                     $_POST[$field] = 0;
                 }
             } else if ($config['type'] == 'html') {
-                if ($arrConfig['url_site'] == $url_site_escola) {
+                if ($arrConfig['url_site'] == $url_site_school) {
                     $_POST[$field] = str_replace(
                         $url_site_local,
-                        $url_site_escola,
+                        $url_site_school,
                         $_POST[$field]
                     );
                 } else if ($arrConfig['url_site'] == $url_site_prod) {
@@ -439,10 +439,10 @@ if ($mode == 'handle_form') {
                     $_POST[$field] = my_query("SELECT $field FROM $module WHERE $texto_sql_primary_keys")[0][$field];
                 }
             } else if ($config['type'] == 'html') {
-                if ($arrConfig['url_site'] == $url_site_escola) {
+                if ($arrConfig['url_site'] == $url_site_school) {
                     $_POST[$field] = str_replace(
                         $url_site_local,
-                        $url_site_escola,
+                        $url_site_school,
                         $_POST[$field]
                     );
                 } else if ($arrConfig['url_site'] == $url_site_prod) {
@@ -621,7 +621,7 @@ if ($mode == 'handle_form') {
                         searchable: true,
                         sortable: true,
                         lengthMenu: [15, 25, 50, 75, 100],
-                        pageLength: 15,
+                        pageLength: ' . $arrConfig["pagination"] . ',
                         orderCellsTop: true,
                         fixedHeader: true,
                         colReorder: true,

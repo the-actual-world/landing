@@ -2,10 +2,10 @@
 
 include '../include/config.inc.php';
 
-$table = isset ($_GET['module']) ? $_GET['module'] : 'logs';
-$draw = isset ($_GET['draw']) ? $_GET['draw'] : 1;
-$start = isset ($_GET['start']) ? $_GET['start'] : 0;
-$length = isset ($_GET['length']) ? $_GET['length'] : 15;
+$table = isset($_GET['module']) ? $_GET['module'] : 'logs';
+$draw = isset($_GET['draw']) ? $_GET['draw'] : 1;
+$start = isset($_GET['start']) ? $_GET['start'] : 0;
+$length = isset($_GET['length']) ? $_GET['length'] : $arrConfig["pagination"];
 
 $total = my_query("SELECT COUNT(*) as total FROM $table")[0]['total'];
 

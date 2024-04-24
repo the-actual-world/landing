@@ -7,7 +7,7 @@ include_once 'get/userinfo.php';
 
 
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="<?php echo $_SESSION['lang'] ?>">
 
 <head>
   <meta charset="utf-8" />
@@ -126,8 +126,8 @@ include_once 'get/userinfo.php';
                 var image = JSON.parse(data);
                 if (image.url) {
                   let url = image.url;
-                  if ("<?php echo $arrConfig['url_site'] ?>" == "<?php echo $url_site_escola ?>") {
-                    url = url.replace("<?php echo $url_site_local ?>", "<?php echo $url_site_escola ?>");
+                  if ("<?php echo $arrConfig['url_site'] ?>" == "<?php echo $url_site_school ?>") {
+                    url = url.replace("<?php echo $url_site_local ?>", "<?php echo $url_site_school ?>");
                   } else if ("<?php echo $arrConfig['url_site'] ?>" == "<?php echo $url_site_prod ?>") {
                     url = url.replace("<?php echo $url_site_local ?>", "<?php echo $url_site_prod ?>");
                   }

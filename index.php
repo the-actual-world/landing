@@ -3,13 +3,19 @@ include_once 'include/config.inc.php';
 
 $path = $_GET['path'] ?? 'index';
 
-$page = my_query("SELECT titulo, conteudo FROM paginas WHERE url = '$path' AND ativo = 1")[0] ?? null;
-
 error_reporting(0);
 
 if (strpos($path, 'admin') != false) {
   exit;
+} else if ($path == '' || $path == 'index' || $path == 'index.php') {
+  include 'home.php';
+  exit;
+} else if (file_exists($path . '.php')) {
+  include $path . '.php';
+  exit;
 }
+
+$page = my_query("SELECT titulo, conteudo FROM paginas WHERE url = '$path' AND ativo = 1")[0] ?? null;
 
 if ($page != null) {
   if (strpos($page['conteudo'], '<?php') !== false) {
@@ -18,7 +24,7 @@ if ($page != null) {
     echo $page['conteudo'];
   }
   echo '<script>document.title = "The Actual World - ' . $page['titulo'] . '";</script>';
-  die;
+  exit;
 }
 
 $page = my_query("SELECT imagem, titulo, conteudo FROM conteudo WHERE slug = '$path' AND ativo = 1")[0] ?? null;
@@ -121,5 +127,3 @@ $page['conteudo'] = '
 
   <?php include \'include/ui/footer.php\'; ?>
 ';
-
-echo '<script>document.title = "The Actual World - ' . $page['titulo'] . '";</script>';

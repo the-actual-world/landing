@@ -2,11 +2,11 @@
   <div class="container">
     <div class="row">
       <div class="col-md-4 mb-4 mb-md-0">
-        <h3>Sobre</h3>
-        <p>O "The Actual World" é uma rede social realmente social.</p>
-        <p>Não vendemos os teus dados. Não te seguimos.
-          Não tentamos manter-te na plataforma por mais tempo (na verdade, pelo contrário).
-          Diverte-te com os teus amigos, compartilha fotos e cria memórias. <strong>Só isso.</strong>
+        <h3>
+          The Actual World
+        </h3>
+        <p>
+          <?php echo t('HeroSubtitle') ?>
         </p>
 
         <p class="social user-select-none">
@@ -26,7 +26,9 @@
       <div class="col-md-7 ms-auto">
         <div class="row site-section pt-0">
           <div class="col-md-4 mb-4 mb-md-0">
-            <h3>Navegação</h3>
+            <h3>
+              <?php echo t('Navigation'); ?>
+            </h3>
             <ul class="list-unstyled">
               <?php
               $links = [
@@ -46,7 +48,9 @@
             </ul>
           </div>
           <div class="col-md-4 mb-4 mb-md-0">
-            <h3>Ajuda</h3>
+            <h3>
+              <?php echo t('Help'); ?>
+            </h3>
             <ul class="list-unstyled">
               <?php
               $categorias_faq = my_query("SELECT * FROM faq_categorias WHERE id_pai = 0 ORDER BY nome ASC");
@@ -57,9 +61,13 @@
             </ul>
           </div>
           <div class="col-md-4 mb-4 mb-md-0">
-            <h3>Começar</h3>
+            <h3>
+              <?php echo t('Start'); ?>
+            </h3>
             <ul class="list-unstyled">
-              <li><a href="<?php echo $arrConfig['url_site'] . '/download'; ?>" target="_blank">Instalar</a></li>
+              <li><a href="<?php echo $arrConfig['url_site'] . '/download'; ?>" target="_blank">
+                  <?php echo t('Download'); ?>
+                </a></li>
             </ul>
           </div>
         </div>

@@ -7,7 +7,7 @@ if (isset($_COOKIE['id']) && $_COOKIE['id'] != '' || isset($_SESSION['id']) && $
 ?>
 
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="<?php echo $_SESSION['lang'] ?>">
 
 <head>
     <meta charset="utf-8" />
@@ -36,7 +36,7 @@ if (isset($_COOKIE['id']) && $_COOKIE['id'] != '' || isset($_SESSION['id']) && $
                                     echo '
                                         <div class="card-header">
                                             <p style="color: red; margin-bottom: 0;">
-                                                ' . $mapaErrors[$_GET['error']] . '
+                                                ' . $errorMap[$_GET['error']] . '
                                             </p>
                                         </div>
                                         ';

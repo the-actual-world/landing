@@ -3,7 +3,7 @@
     <div class="row align-items-center">
       <div class="col-md-6 me-auto text-center text-md-start mb-5 mb-md-0">
         <h3 class="text-white" data-aos="fade-up" data-aos-delay="100">
-          Começa já a partilhar as tuas memórias com quem realmente importa.
+          <?php echo t('CTATitle') ?>
         </h3>
       </div>
       <div class="col-md-5 text-center text-md-end">

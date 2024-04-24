@@ -3,16 +3,16 @@ include_once 'include/config.inc.php';
 
 function selecionar_categorias_faq($pai = 0)
 {
-  global $arrConfig, $url_site_escola, $url_site_local, $url_site_prod;
+  global $arrConfig, $url_site_school, $url_site_local, $url_site_prod;
   $categorias = my_query("SELECT id, icone, nome, id_pai FROM faq_categorias WHERE ativo = 1 AND id_pai = $pai");
   $arr = [];
   foreach ($categorias as $categoria) {
     $paginas = my_query("SELECT id, titulo, conteudo FROM faq WHERE ativo = 1 AND id_categoria = " . $categoria['id']);
-    if ($arrConfig['url_site'] == $url_site_escola) {
+    if ($arrConfig['url_site'] == $url_site_school) {
       foreach ($paginas as $key => $pagina) {
         $paginas[$key]['conteudo'] = str_replace(
           $url_site_local,
-          $url_site_escola,
+          $url_site_school,
           $pagina['conteudo']
         );
       }
@@ -88,7 +88,7 @@ function mostrar_categorias_faq($categorias)
 ?>
 
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="<?php echo $_SESSION['lang'] ?>">
 
 <head>
   <meta charset="utf-8">
@@ -122,7 +122,8 @@ function mostrar_categorias_faq($categorias)
     <div class="container d-flex justify-content-between align-items-center">
 
       <div class="logo">
-        <a href="<?php echo $arrConfig['url_site'] ?>"><img src="assets/img/logo.png" alt="" class="img-fluid"
+        <a href="<?php echo $arrConfig['url_site'] ?>"><img
+            src="<?php echo $arrConfig['url_site'] ?>/assets/img/logo.png" alt="" class="img-fluid"
             style="filter:brightness(0) invert(1)"></a>
       </div>
 
@@ -131,21 +132,37 @@ function mostrar_categorias_faq($categorias)
           <?php
           $path = $_GET['path'] ?? 'index';
           ?>
-          <!-- <li><a href="<?php echo $arrConfig['url_site'] ?>"
-              class="<?php echo $path === 'index' ?? 'active' ?>">Início</a>
-          </li>
-          <li><a href="about" class="<?php echo $path === 'about' ?? 'active' ?>">Sobre</a></li>
-          <li><a href="pricing" class="<?php echo $path === 'pricing' ?? 'active' ?>">Preço</a></li>
-          <li><a href="catalog" class="<?php echo $path === 'catalog' ?? 'active' ?>">Catálogo</a></li>
-          <li><a href="updates" class="<?php echo $path === 'updates' ?? 'active' ?>">Atualizações</a></li>
-          <li><a href="contact" class="<?php echo $path === 'contact' ?? 'active' ?>">Contacto</a></li> -->
+
           <?php mostrar_menu($menu); ?>
-          <li class="dropdown"><a href="help"><span>Ajuda</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown"><a href="help"><span>
+                <?php echo t('Help') ?>
+              </span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <?php mostrar_categorias_faq($categorias_faq); ?>
             </ul>
           </li>
-          <li style="margin-left: 20px"><a href="download" class="btn btn-primary" target="_blank">Instalar</a></li>
+
+          <li class="dropdown"><a href="about"><span><?php echo t('Language') ?></span> <i
+                class="bi bi-chevron-down"></i></a>
+            <ul>
+              <?php
+              foreach ($arrConfig['langs'] as $slug => $lang) {
+                echo '
+                <li>
+                    <a href="' . $arrConfig["url_site"] . '/lang.php?lang=' . $slug . '">
+                        <img src="' . $arrConfig["url_site"] . '/assets/flags/' . $slug . '.svg" alt="' . $lang . '" width="30">
+                        <span>' . $lang . '</span>
+                    </a>
+                </li>
+                ';
+              }
+              ?>
+            </ul>
+          </li>
+
+          <li style="margin-left: 20px"><a href="download" class="btn btn-primary" target="_blank">
+              <?php echo t('Download') ?>
+            </a></li>
 
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>

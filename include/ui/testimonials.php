@@ -5,7 +5,9 @@ $testemunhos = my_query('SELECT nome_pessoa, imagem_pessoa, cargo_pessoa, titulo
 <section class="section border-top border-bottom">
   <div class="container">
     <div class="row justify-content-center text-center mb-5">
-      <h2 class="section-heading">Testemunhos</h2>
+      <h2 class="section-heading">
+        <?php echo t('Testimonials') ?>
+      </h2>
     </div>
     <div class="row justify-content-center text-center">
       <div class="col-md-7">
