@@ -30,6 +30,13 @@ add_log('inicio', 'VER_INICIO');
     <div class="row align-items-center">
       <div class="col-12 hero-text-image">
         <div class="row">
+          <?php
+          if (isset($_GET['waitlist'])) {
+            echo '<div class="alert alert-success mt-4" role="alert">';
+            echo t('WaitlistSuccess');
+            echo '</div>';
+          }
+          ?>
           <div class="col-lg-8 text-center text-lg-start">
             <h4 class="text-white font-weight-light mb-4" data-aos="fade-right" data-aos-delay="500">
               The Actual World
@@ -40,9 +47,9 @@ add_log('inicio', 'VER_INICIO');
             </p>
             <div data-aos="fade-right" data-aos-delay="200" data-aos-offset="-500"
               class="d-flex align-items-center gap-2 justify-content-center justify-content-lg-start">
-              <a href="download" class="btn btn-primary fw-bold" target="_blank">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDownload">
                 <?php echo t('Download') ?>
-              </a>
+              </button>
               <a href="help" class="btn btn-outline-white">
                 <?php echo t('Help') ?>
               </a>

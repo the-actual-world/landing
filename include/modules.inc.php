@@ -662,6 +662,33 @@ $modules = [
       ]
     ]
   ],
+  'waitlist' => [
+    'name' => t('Waitlist'),
+    'icon' => 'fa fa-clock',
+    'supports_lang' => false,
+    'columns' => [
+      'id' => [
+        'name' => 'ID',
+        'primary' => true,
+        'editable' => false,
+        'type' => 'hidden',
+        'required' => false
+      ],
+      'email' => [
+        'name' => 'Email',
+        'type' => 'text',
+      ],
+      'receber_atualizacoes' => [
+        'name' => 'Receber Atualizações',
+        'type' => 'checkbox',
+        'required' => false
+      ],
+      'data' => [
+        'name' => 'Data',
+        'type' => 'datetime',
+      ]
+    ]
+  ],
   'utilizadores' => [
     'name' => t('Users'),
     'icon' => 'fa fa-user',

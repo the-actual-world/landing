@@ -65,9 +65,9 @@
               <?php echo t('Start'); ?>
             </h3>
             <ul class="list-unstyled">
-              <li><a href="<?php echo $arrConfig['url_site'] . '/download'; ?>" target="_blank">
+              <li><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDownload">
                   <?php echo t('Download'); ?>
-                </a></li>
+                </button></li>
             </ul>
           </div>
         </div>
@@ -86,6 +86,41 @@
 
   </div>
 </footer>
+
+<div class="modal fade" id="modalDownload" tabindex="-1" aria-labelledby="modalDownloadLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalDownloadLabel">
+          <?php echo t('JoinWaitlist'); ?>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          <?php echo t('JoinWaitlistSubtitle'); ?>
+        </p>
+        <form action="<?php echo $arrConfig['url_site']; ?>/waitlist" method="post">
+          <div class="mb-3">
+            <label for="email" class="form-label">
+              <?php echo t('Email'); ?>
+            </label>
+            <input type="email" class="form-control" id="email" name="email" required>
+          </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="receiveEmailUpdates" name="receiveEmailUpdates">
+            <label class="form-check-label" for="receiveEmailUpdates">
+              <?php echo t('ReceiveEmailUpdates'); ?>
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            <?php echo t('Join'); ?>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
     class="bi bi-arrow-up-short"></i></a>

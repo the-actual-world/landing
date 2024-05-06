@@ -160,9 +160,10 @@ function mostrar_categorias_faq($categorias)
             </ul>
           </li>
 
-          <li style="margin-left: 20px"><a href="download" class="btn btn-primary" target="_blank">
+          <li style="margin-left: 20px"><button class="btn btn-primary" data-bs-toggle="modal"
+              data-bs-target="#modalDownload">
               <?php echo t('Download') ?>
-            </a></li>
+            </button></li>
 
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>

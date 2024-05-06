@@ -20,11 +20,19 @@ $arrLangs = [
   // Header
   "Help" => "Ajuda",
   "Language" => "Idioma",
-  "Download" => "Instalar",
+  "Download" => "Instalar", // Mudar para "Instalar"
 
   // Footer
   "Navigation" => "Navegação",
   "Start" => "Começar",
+
+  // Waitlist
+  "JoinWaitlist" => "Junta-te à Lista de Espera",
+  "JoinWaitlistSubtitle" => "Inscreve-te para seres notificado quando a plataforma estiver disponível.",
+  "EmailPlaceholder" => "Email",
+  "ReceiveEmailUpdates" => "Receber atualizações por email",
+  "Join" => "Inscrever",
+  "WaitlistSuccess" => "Obrigado por te inscreveres! Serás notificado quando a plataforma te estiver disponível.",
 
   // Home Page
   "HeroSlogan" => "Rede Social<br>Realmente Social",

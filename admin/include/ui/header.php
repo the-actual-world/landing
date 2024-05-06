@@ -71,7 +71,7 @@ include_once 'get/userinfo.php';
   </style>
 
   <script type="module" id="code">
-    import { CodeJar } from "https://medv.io/codejar/codejar.js?"
+    import { CodeJar } from "https://cdn.skypack.dev/codejar"
 
     $(document).ready(function () {
       document.querySelectorAll('div.code').forEach((textarea) => {
@@ -210,6 +210,7 @@ include_once 'get/userinfo.php';
                 'conteudo',
                 'menu',
                 'mensagens',
+                'waitlist',
                 'utilizadores',
               ],
               "Produtos" => [
