@@ -100,7 +100,7 @@
         <p>
           <?php echo t('JoinWaitlistSubtitle'); ?>
         </p>
-        <form action="<?php echo $arrConfig['url_site']; ?>/waitlist" method="post">
+        <form action="<?php echo $arrConfig['url_site']; ?>/forms/waitlist.inc.php" method="post">
           <div class="mb-3">
             <label for="email" class="form-label">
               <?php echo t('Email'); ?>

@@ -1,6 +1,11 @@
 <?php
-include 'include/ui/header.php';
 include_once 'include/config.inc.php';
+
+$page_title = t('AboutUs');
+$page_description = t('AboutUsSubtitle');
+$page_keywords = $page_title;
+
+include 'include/ui/header.php';
 
 $equipa = my_query("SELECT nome, cargo, imagem FROM equipa WHERE ativo = 1 ORDER BY ordem");
 $seccoes_missao = my_query("SELECT titulo, descricao FROM seccoes_missao WHERE ativo = 1 ORDER BY ordem");
@@ -109,8 +114,6 @@ add_log('sobre', 'VER_SOBRE');
       </div>
     </div>
   </section>
-
-  <?php render_page_title('About') ?>
 
   <?php include 'include/ui/testimonials.php'; ?>
 

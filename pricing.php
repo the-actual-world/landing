@@ -1,6 +1,11 @@
 <?php
-include 'include/ui/header.php';
 include_once 'include/config.inc.php';
+
+$page_title = t('Pricing');
+$page_description = t('OurPricesSubtitle');
+$page_keywords = t('OurPrices');
+
+include 'include/ui/header.php';
 
 add_log('precos', 'VER_PRECOS');
 ?>
@@ -145,8 +150,6 @@ add_log('precos', 'VER_PRECOS');
       </div>
     </div>
   </section>
-
-  <?php render_page_title('Pricing') ?>
 
   <?php include 'include/ui/cta-section.php'; ?>
 </main>

@@ -18,18 +18,25 @@ if (strpos($path, 'admin') != false) {
 $page = my_query("SELECT titulo, conteudo FROM paginas WHERE url = '$path' AND ativo = 1")[0] ?? null;
 
 if ($page != null) {
+  $page_title = $page['titulo'];
+  $page_description = strip_tags($page['conteudo']);
+  $page_keywords = $page_title;
+
   if (strpos($page['conteudo'], '<?php') !== false) {
     $page['conteudo'] = eval ('?>' . $page['conteudo']);
   } else {
     echo $page['conteudo'];
   }
-  echo '<script>document.title = "The Actual World - ' . $page['titulo'] . '";</script>';
   exit;
 }
 
 $page = my_query("SELECT imagem, titulo, conteudo FROM conteudo WHERE slug = '$path' AND ativo = 1")[0] ?? null;
 
 if ($page != null) {
+  $page_title = $page['titulo'];
+  $page_description = strip_tags($page['conteudo']);
+  $page_keywords = $page_title;
+
   eval ('?>' . '
   <?php
     include "include/ui/header.php";
@@ -92,7 +99,6 @@ if ($page != null) {
     <?php include "include/ui/footer.php"; ?>
   ');
 
-  echo '<script>document.title = "The Actual World - ' . $page['titulo'] . '";</script>';
   die;
 }
 

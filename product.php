@@ -1,5 +1,4 @@
 <?php
-include 'include/ui/header.php';
 include_once 'include/config.inc.php';
 
 if (!isset($_GET['id'])) {
@@ -13,6 +12,12 @@ if (count($produtos) == 0) {
   redirect($arrConfig['url_site'] . '/404');
 }
 $produto = $produtos[0];
+
+$page_title = $produto['nome'];
+$page_description = $produto['descricao'];
+$page_keywords = $produto['nome'];
+
+include 'include/ui/header.php';
 
 // para o SEO
 if (!isset($_GET['name']) || $_GET['name'] != $produto['nome']) {
@@ -152,8 +157,6 @@ add_log('produto', 'VER_PRODUTO');
             </div>
         </div>
     </section> -->
-
-  <?php render_page_title('Product') ?>
 
   <?php include 'include/ui/cta-section.php'; ?>
 </main>

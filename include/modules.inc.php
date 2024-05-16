@@ -53,6 +53,10 @@ $modules = [
         'name' => 'Conteúdo',
         'type' => 'code',
       ],
+      'modificado_em' => [
+        'name' => 'Modificado em',
+        'type' => 'datetime',
+      ],
       'ativo' => [
         'name' => 'Ativo',
         'type' => 'checkbox',
@@ -87,6 +91,10 @@ $modules = [
       'conteudo' => [
         'name' => 'Conteúdo',
         'type' => 'html',
+      ],
+      'modificado_em' => [
+        'name' => 'Modificado em',
+        'type' => 'datetime',
       ],
       'ativo' => [
         'name' => 'Ativo',

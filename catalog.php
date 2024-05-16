@@ -1,6 +1,11 @@
 <?php
-include 'include/ui/header.php';
 include_once 'include/config.inc.php';
+
+$page_title = t('Catalog');
+$description = t('CatalogSubtitle');
+$keywords = $page_title;
+
+include 'include/ui/header.php';
 
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $limit = 15;
@@ -124,8 +129,6 @@ add_log('catalogo', 'VER_CATALOGO');
       </div>
     </div>
   </section>
-
-  <?php render_page_title('Catalog') ?>
 
   <?php include 'include/ui/cta-section.php'; ?>
 </main>

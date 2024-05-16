@@ -74,8 +74,8 @@ $arrLangs = [
   "AddToCart" => "Adicionar ao Carrinho",
 
   // Updates Page
-  "Updates" => "Atualizações",
   "UpdatesSubtitle" => "Fica a par das últimas novidades e melhorias na plataforma.",
+  "UpdatesKeywords" => "atualizações, novidades, melhorias, correções",
   "Previous" => "Anterior",
   "Next" => "Seguinte",
   "ReadMore" => "Ler Mais",
@@ -136,12 +136,16 @@ $arrLangs = [
   "Messages" => "Mensagens",
   "Users" => "Utilizadores",
 
-  // TODO: Table Columns
-
-
   // Configuration
   "_Timezone" => "Europe/Lisbon",
   "_Locale" => "pt_PT",
   "_LocaleFallback" => "pt_PT.utf-8",
   "_LocaleNextFallback" => "portuguese",
+
+  // Others
+  "GlobalPageTitle" => "The Actual World",
+  "GlobalPageTitleSuffix" => " - TAW",
+  "GlobalPageDescription" => "Rede Social Transparente, Realmente Social",
+  "GlobalPageKeywords" => "rede social, privacidade, segurança, transparência, amigos, partilha, fotos, memórias",
+  "GlobalPageDescriptionSuffix" => " - A rede social que te respeita: The Actual World",
 ];

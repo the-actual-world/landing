@@ -178,8 +178,6 @@ add_log('inicio', 'VER_INICIO');
 
   </section>
 
-  <?php render_page_title('Home') ?>
-
   <?php include 'include/ui/testimonials.php'; ?>
 
   <?php include 'include/ui/cta-section.php'; ?>

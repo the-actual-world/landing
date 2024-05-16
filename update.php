@@ -1,8 +1,14 @@
 <?php
-include 'include/ui/header.php';
 include_once 'include/config.inc.php';
 
 $atualizacao = my_query("SELECT * FROM atualizacoes WHERE id = " . $_GET['id'])[0];
+
+$page_title = $atualizacao['titulo'] . ' - ' . t('Update');
+$page_description = strip_tags($atualizacao['conteudo']);
+$page_keywords = 'atualizacao, update, ' . $atualizacao['titulo'];
+
+include 'include/ui/header.php';
+
 
 if ($arrConfig['url_site'] == $url_site_prod) {
   $atualizacao['conteudo'] = str_replace(
@@ -238,8 +244,6 @@ add_log('atualizacao', 'VER_ATUALIZACAO');
     </div>
     </div>
   </section>
-
-  <?php render_page_title('Update') ?>
 
   <?php include 'include/ui/cta-section.php'; ?>
 

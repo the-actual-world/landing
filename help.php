@@ -1,5 +1,4 @@
 <?php
-include 'include/ui/header.php';
 include_once 'include/config.inc.php';
 
 $id_categoria = $_GET['id'] ?? 0;
@@ -20,6 +19,12 @@ if ($id_categoria != 0) {
     redirect($arrConfig['url_site'] . '/help');
   }
 }
+
+$page_title = isset($categoria['nome']) ? $categoria['nome'] : t('Help');
+$page_description = t('HelpSubtitle') . (isset($categoria['nome']) ? t('HelpSubtitle2') . $categoria['nome'] . t('HelpSubtitle3') : '');
+$page_keywords = $page_title;
+
+include 'include/ui/header.php';
 
 function mostrar_categorias_faq_large($categorias)
 {
@@ -119,8 +124,6 @@ add_log('ajuda', 'VER_AJUDA');
       </div>
     </div>
   </section>
-
-  <?php render_page_title('Help') ?>
 
   <?php include 'include/ui/cta-section.php'; ?>
 

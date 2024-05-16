@@ -11,8 +11,8 @@ if ($email && $nome && $titulo && $mensagem) {
   my_query("INSERT INTO mensagens (email, nome, titulo, mensagem, data) VALUES ('$email', '$nome', '$titulo', '$mensagem', NOW())");
 
   add_log('contacto', 'SUCESSO_MANDAR_MENSAGEM');
-  redirect($arrConfig['url_site'] . '/contact?success');
+  redirect($arrConfig['url_site'] . '/contact.php?success');
 }
 
 add_log('contacto', 'ERRO_MANDAR_MENSAGEM');
-redirect($arrConfig['url_site'] . '/contact?error');
+redirect($arrConfig['url_site'] . '/contact.php?error');

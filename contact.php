@@ -1,6 +1,11 @@
 <?php
-include 'include/ui/header.php';
 include_once 'include/config.inc.php';
+
+$page_title = t('Contact');
+$page_description = t('StartContactSubtitle');
+$page_keywords = $page_title;
+
+include 'include/ui/header.php';
 
 add_log('contacto', 'VER_CONTACTO');
 ?>
@@ -9,7 +14,6 @@ add_log('contacto', 'VER_CONTACTO');
 
   <section class="hero-section inner-page">
     <div class="wave">
-
       <svg width="1920px" height="265px" viewBox="0 0 1920 265" version="1.1" xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink">
         <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -20,7 +24,6 @@ add_log('contacto', 'VER_CONTACTO');
           </g>
         </g>
       </svg>
-
     </div>
 
     <div class="container">
@@ -74,7 +77,7 @@ add_log('contacto', 'VER_CONTACTO');
         </div>
 
         <div class="col-md-6 mb-5 mb-md-0" data-aos="fade-up">
-          <form action="forms/contact.php" method="post">
+          <form action="forms/contact.inc.php" method="post">
 
             <div class="row">
 
@@ -126,8 +129,6 @@ add_log('contacto', 'VER_CONTACTO');
       </div>
     </div>
   </section>
-
-  <?php render_page_title('Contact') ?>
 
   <?php include 'include/ui/testimonials.php'; ?>
 

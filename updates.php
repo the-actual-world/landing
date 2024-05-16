@@ -1,6 +1,11 @@
 <?php
-include 'include/ui/header.php';
 include_once 'include/config.inc.php';
+
+$page_title = t('Updates');
+$page_description = t('UpdatesSubtitle');
+$page_keywords = t('UpdatesKeywords');
+
+include 'include/ui/header.php';
 
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $limit = 15;
@@ -136,8 +141,6 @@ add_log('atualizacoes', 'VER_ATUALIZACOES');
     </div>
 
   </section>
-
-  <?php render_page_title('Updates') ?>
 
   <?php include 'include/ui/cta-section.php'; ?>
 

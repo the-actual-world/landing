@@ -12,13 +12,6 @@ function t($key)
     return $arrLangs[$key] ?? $key;
 }
 
-function render_page_title($title)
-{
-    echo '
-    <script>document.title = "The Actual World - ' . t($title) . '";</script>
-    ';
-}
-
 function clean_name($string)
 {
     $string = str_replace(' ', '_', $string);

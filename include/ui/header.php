@@ -85,6 +85,19 @@ function mostrar_categorias_faq($categorias)
     echo '</li>';
   }
 }
+
+function filter_seo_value($value)
+{
+  // allow letters, numbers, spaces, hyphens, underscores, and periods and letters with accents as well as ç
+  return preg_replace('/[^a-zA-Z0-9\s\-_áéíóúãõâêîôûàèìòùç.]/', '', $value);
+}
+
+// SEO
+$page_title = isset($page_title) ? filter_seo_value($page_title) . t("GlobalPageTitleSuffix") : t("GlobalPageTitle");
+$page_description = isset($page_description) ? filter_seo_value($page_description) . t('GlobalPageDescriptionSuffix') : t('GlobalPageDescription');
+$page_keywords = (isset($page_keywords) ? filter_seo_value($page_keywords) . ", " : "") . t('GlobalPageKeywords');
+$current_page = basename($_SERVER['PHP_SELF']);
+
 ?>
 
 <!DOCTYPE html>
@@ -94,17 +107,42 @@ function mostrar_categorias_faq($categorias)
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title></title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+  <!-- Dynamic Title based on page -->
+  <title><?php echo $page_title ?></title>
+  <!-- Meta Description -->
+  <meta name="description" content="<?php echo $page_description; ?>">
+  <!-- Meta Keywords -->
+  <meta name="keywords" content="<?php echo $page_keywords; ?>">
 
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="<?php echo $page_title; ?>">
+  <meta property="og:description" content="<?php echo $page_description; ?>">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<?php echo $arrConfig['url_site'] . '/' . $current_page; ?>">
+  <meta property="og:image" content="<?php echo $arrConfig['url_site'] . '/assets/img/logo.png'; ?>">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<?php echo $page_title; ?>">
+  <meta name="twitter:description" content="<?php echo $page_description; ?>">
+  <meta name="twitter:image" content="<?php echo $arrConfig['url_site'] . '/assets/img/logo.png'; ?>">
+
+  <!-- Robots Meta Tag -->
+  <meta name="robots" content="index, follow">
+
+  <!-- Canonical Link -->
+  <link rel="canonical" href="<?php echo $arrConfig['url_site'] . '/' . $current_page; ?>">
+
+  <!-- Favicon and Apple Touch Icon -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
+  <!-- Google Fonts -->
   <link
     href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
     rel="stylesheet">
 
+  <!-- Vendor CSS Files -->
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -113,6 +151,7 @@ function mostrar_categorias_faq($categorias)
   <link href="assets/vendor/lightbox2/dist/css/lightbox.min.css" rel="stylesheet">
   <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 
+  <!-- Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 </head>
 
@@ -134,9 +173,8 @@ function mostrar_categorias_faq($categorias)
           ?>
 
           <?php mostrar_menu($menu); ?>
-          <li class="dropdown"><a href="help"><span>
-                <?php echo t('Help') ?>
-              </span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown"><a href="help"><span><?php echo t('Help') ?></span> <i
+                class="bi bi-chevron-down"></i></a>
             <ul>
               <?php mostrar_categorias_faq($categorias_faq); ?>
             </ul>
@@ -149,7 +187,7 @@ function mostrar_categorias_faq($categorias)
               foreach ($arrConfig['langs'] as $slug => $lang) {
                 echo '
                 <li>
-                    <a href="' . $arrConfig["url_site"] . '/lang.php?lang=' . $slug . '">
+                    <a href="' . $arrConfig["url_site"] . '/forms/lang.inc.php?lang=' . $slug . '">
                         <img src="' . $arrConfig["url_site"] . '/assets/flags/' . $slug . '.svg" alt="' . $lang . '" width="30">
                         <span>' . $lang . '</span>
                     </a>
