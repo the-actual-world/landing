@@ -4,7 +4,7 @@ include_once 'include/config.inc.php';
 $id_categoria = $_GET['id'] ?? 0;
 
 if ($id_categoria != 0) {
-  $resultados = my_query("SELECT id, nome, icone, id_pai FROM faq_categorias WHERE id = '$id_categoria'");
+  $resultados = my_query("SELECT A.id, B.nome, A.icone, A.id_pai FROM faq_categorias A INNER JOIN faq_categorias_lang B ON A.id = B.id WHERE A.id = '$id_categoria' AND B.lang = '" . $_SESSION['lang'] . "'");
   if (count($resultados) != 0) {
     $categoria = $resultados[0];
     $categorias_abertas = array($id_categoria);
@@ -12,7 +12,7 @@ if ($id_categoria != 0) {
       $categoria_pai = $categoria;
       while ($categoria_pai['id_pai'] != 0 && count($categoria_pai) > 0) {
         array_unshift($categorias_abertas, $categoria_pai['id_pai']);
-        $categoria_pai = my_query("SELECT id, id_pai FROM faq_categorias WHERE id = " . $categoria_pai['id_pai'])[0];
+        $categoria_pai = my_query("SELECT A.id, A.id_pai FROM faq_categorias A INNER JOIN faq_categorias_lang B ON A.id = B.id WHERE A.id = " . $categoria_pai['id_pai'] . " AND B.lang = '" . $_SESSION['lang'] . "'")[0];
       }
     }
   } else {

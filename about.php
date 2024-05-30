@@ -7,8 +7,8 @@ $page_keywords = $page_title;
 
 include 'include/ui/header.php';
 
-$equipa = my_query("SELECT nome, cargo, imagem FROM equipa WHERE ativo = 1 ORDER BY ordem");
-$seccoes_missao = my_query("SELECT titulo, descricao FROM seccoes_missao WHERE ativo = 1 ORDER BY ordem");
+$equipa = my_query("SELECT A.nome, B.cargo, A.imagem FROM equipa A INNER JOIN equipa_lang B ON A.id = B.id WHERE A.ativo = 1 AND B.lang = '" . $_SESSION['lang'] . "' ORDER BY A.ordem");
+$seccoes_missao = my_query("SELECT B.titulo, B.descricao FROM seccoes_missao A INNER JOIN seccoes_missao_lang B ON A.id = B.id WHERE A.ativo = 1 AND B.lang = '" . $_SESSION['lang'] . "' ORDER BY A.ordem");
 
 add_log('sobre', 'VER_SOBRE');
 ?>

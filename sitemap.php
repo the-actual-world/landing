@@ -36,7 +36,7 @@ foreach ($products as $product) {
   echo '</url>';
 }
 
-$updates = my_query("SELECT id, titulo, data FROM atualizacoes WHERE ativo = 1");
+$updates = my_query("SELECT A.id, B.titulo, A.data FROM atualizacoes A INNER JOIN atualizacoes_lang B ON A.id = B.id WHERE A.ativo = 1 AND B.lang = '$_SESSION[lang]'");
 
 foreach ($updates as $update) {
   echo '<url>';

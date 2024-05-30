@@ -2,6 +2,8 @@
 
 global $arrLangs;
 
+include $arrConfig['dir_site'] . '/include/constants.inc.php';
+
 $arrLangs = [
   // Errors
   "ErrorFillAllFields" => "Por favor preencha todos os campos.",
@@ -58,7 +60,19 @@ $arrLangs = [
   // Pricing Page
   "Pricing" => "Preço",
   "OurPrices" => "Os nossos preços",
-  "OurPricesSubtitle" => "O TAW, utilizando um modelo de subscrição mensal obrigatório, garante a privacidade e segurança dos utilizadores.",
+  "OurPricesSubtitle" => "Acreditamos que os utilizadores de qualquer rede social devem permanecer os clientes, e não o produto.",
+  "PricingPageHTML" => "
+    <p>No The Actual World, acreditamos que os utilizadores de qualquer rede social devem permanecer os clientes, e não o produto. Por isso, não vendemos os teus dados a terceiros.</p>
+    <p>Em vez disso, a nossa fonte de rendimento provém da subscrição dos utilizadores, e é com isso que a plataforma se financia.</p>
+    <p>Créditos são aquilo que paga pela rede social! A única forma de obter créditos é comprando-os, ou recebendo-os de amigos (como presentes), no entanto, todos os utilizadores começam com a quantia de {$CONSTANTS['InitialCredits']} créditos.</p>
+    <p>A nossa equipa acredita que os créditos são a forma mais transparente de pagar pela rede social.</p>
+    <p>Os créditos são descontados da tua conta com base naquilo que usas, neste caso:</p>
+    <ul>
+      <li><strong>{$CONSTANTS['CreditsPerDayNormal']} créditos por dia</strong>, ou seja, ~<{$CONSTANTS['EurosPerMonthNormal']}€ por mês ({$CONSTANTS['EurosPerYearNormal']}€ por ano) visto que, ainda que não uses a rede social, a tua conta continua a ser mantida, assim como fotos e conversas.</li>
+      <li><strong>{$CONSTANTS['CreditsPerGBPerDay']} créditos por dia por GB de fotos e vídeos guardados</strong>, ou seja, ~{$CONSTANTS['EurosPerExampleGBPerMonth']}€ por mês ({$CONSTANTS['EurosPerExampleGBPerYear']}€ por ano) caso tenhas {$CONSTANTS['ExampleGB']} GB de fotos e vídeos guardados.</li>
+      <li><strong>{$CONSTANTS['CreditsPerSummary']} créditos por cada resumo diário que gerares </strong> ({$CONSTANTS['EurosPerSummary']}€ por resumo).</li>
+    </ul>
+  ",
 
   // Catalog Page
   "Catalog" => "Catálogo",

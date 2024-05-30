@@ -1,6 +1,6 @@
 <?php
 
-include "include/config.inc.php";
+include "../include/config.inc.php";
 
 if (isset($_GET["lang"])) {
   $_SESSION["lang"] = $_GET["lang"];

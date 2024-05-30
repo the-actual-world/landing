@@ -4,10 +4,10 @@ include_once 'include/config.inc.php';
 function selecionar_categorias_faq($pai = 0)
 {
   global $arrConfig, $url_site_school, $url_site_local, $url_site_prod;
-  $categorias = my_query("SELECT id, icone, nome, id_pai FROM faq_categorias WHERE ativo = 1 AND id_pai = $pai");
+  $categorias = my_query("SELECT A.id, A.icone, B.nome, A.id_pai FROM faq_categorias A INNER JOIN faq_categorias_lang B ON A.id = B.id WHERE A.ativo = 1 AND A.id_pai = $pai AND B.lang = '" . $_SESSION['lang'] . "' ORDER BY B.nome ASC");
   $arr = [];
   foreach ($categorias as $categoria) {
-    $paginas = my_query("SELECT id, titulo, conteudo FROM faq WHERE ativo = 1 AND id_categoria = " . $categoria['id']);
+    $paginas = my_query("SELECT A.id, B.titulo, B.conteudo FROM faq A INNER JOIN faq_lang B ON A.id = B.id WHERE A.ativo = 1 AND A.id_categoria = " . $categoria['id'] . " AND B.lang = '" . $_SESSION['lang'] . "'");
     if ($arrConfig['url_site'] == $url_site_school) {
       foreach ($paginas as $key => $pagina) {
         $paginas[$key]['conteudo'] = str_replace(
@@ -31,7 +31,7 @@ function selecionar_categorias_faq($pai = 0)
       'icone' => $categoria['icone'],
       'nome' => $categoria['nome'],
       'subcategorias' => selecionar_categorias_faq($categoria['id']),
-      'paginas' => my_query("SELECT id, titulo, conteudo FROM faq WHERE ativo = 1 AND id_categoria = " . $categoria['id'])
+      'paginas' => my_query("SELECT A.id, B.titulo, B.conteudo FROM faq A INNER JOIN faq_lang B ON A.id = B.id WHERE A.ativo = 1 AND A.id_categoria = " . $categoria['id'] . " AND B.lang = '" . $_SESSION['lang'] . "'"),
     ]);
   }
   return $arr;
@@ -39,7 +39,8 @@ function selecionar_categorias_faq($pai = 0)
 
 function selecionar_menu($pai = 0)
 {
-  $menu = my_query("SELECT id, titulo, url, id_pai FROM menu WHERE ativo = 1 AND id_pai = $pai ORDER BY ordem ASC");
+  // $menu = my_query("SELECT id, titulo, url, id_pai FROM menu WHERE ativo = 1 AND id_pai = $pai ORDER BY ordem ASC");
+  $menu = my_query("SELECT A.id, B.titulo, A.url, A.id_pai FROM menu A INNER JOIN menu_lang B ON A.id = B.id WHERE A.ativo = 1 AND A.id_pai = $pai AND B.lang = '" . $_SESSION['lang'] . "' ORDER BY A.ordem ASC");
   $arr = [];
   foreach ($menu as $item) {
     array_push($arr, [

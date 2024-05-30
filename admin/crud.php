@@ -33,6 +33,22 @@ function renderFormField($field, $config, $languages, $values = [])
                 echo "<input type='hidden' name='{$field}[$lang]' value='$value'>";
             } else if ($config['type'] === 'decimal') {
                 echo "<input type='number' class='form-control' name='{$field}[$lang]' id='$inputId' value='$value' $required step='0.01'>";
+            } else if ($config['type'] === 'radio') {
+                echo "<div class='form-check'>";
+                foreach ($config['options'] as $option => $label) {
+                    $checked = $value == $option ? 'checked' : '';
+                    echo "<input type='radio' class='form-check-input' name='{$field}[$lang]' value='$option' $required $checked>$label<br>";
+                }
+                echo "</div>";
+            } else if ($config['type'] === 'select') {
+                echo "<select class='form-select' name='{$field}[$lang]' id='$inputId' $required>";
+                foreach ($config['options'] as $option => $label) {
+                    $selected = $value == $option ? 'selected' : '';
+                    echo "<option value='$option' $selected>$label</option>";
+                }
+                echo "</select>";
+            } else if ($config['type'] === 'html') {
+                echo "<textarea class='wysiwyg' name='{$field}[$lang]' id='$inputId'>$value</textarea>";
             } else if ($config['type'] === 'image') {
                 echo "<input type='file' class='form-control' name='{$field}[$lang]' id='$inputId' $required accept='image/*'>";
                 if (!empty($value)) {
@@ -83,7 +99,7 @@ function renderFormField($field, $config, $languages, $values = [])
         } else if ($config['type'] === 'date') {
             $input = "<input type='date' class='form-control' name='$field' value='{$values[$field]}' $required>";
         } else if ($config['type'] === 'datetime') {
-            $input = "<input type='datetime-local' class='form-control' name='$field' value='{$values[$field]}' $required>";
+            $input = "<input type='datetime-local' class='form-control' name='$field' value='" . date('Y-m-d\TH:i:s', strtotime($values[$field])) . "' $required>";
         } else if ($config['type'] === 'time') {
             $input = "<input type='time' class='form-control' name='$field' value='{$values[$field]}' $required>";
         } else if ($config['type'] === 'html') {
@@ -503,7 +519,7 @@ if ($mode == 'handle_form') {
                 }
             }
         }
-        if (isset($config['editable']) && $modules[$module]['supports_lang']) {
+        if ($modules[$module]['supports_lang']) {
             foreach ($langs_data as $lang => $data) {
                 foreach ($data as $field => $value) {
                     my_query("UPDATE {$module}_lang SET $field = '$value' WHERE $texto_sql_primary_keys AND lang = '$lang'");
@@ -560,7 +576,8 @@ if ($mode == 'handle_form') {
             }
             $primary_and_text_sql = substr($primary_and_text_sql, 0, -3);
 
-            if (isset($config['editable']) && $modules[$module]['supports_lang']) {
+            // if (isset($config['editable']) && $modules[$module]['supports_lang']) {
+            if ($modules[$module]['supports_lang']) {
                 $data = my_query("SELECT * FROM {$module}_lang WHERE $primary_and_text_sql");
                 $mainData = my_query("SELECT * FROM $module WHERE $primary_and_text_sql LIMIT 1");
 

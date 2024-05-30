@@ -1,7 +1,12 @@
 <?php
 include_once 'include/config.inc.php';
 
-$atualizacao = my_query("SELECT * FROM atualizacoes WHERE id = " . $_GET['id'])[0];
+if (!isset($_GET['id'])) {
+  redirect($arrConfig['url_site'] . '/updates');
+}
+
+$atualizacao = my_query("SELECT A.*, B.* FROM atualizacoes A INNER JOIN atualizacoes_lang B ON A.id = B.id
+  WHERE A.ativo = 1 AND B.lang = '$_SESSION[lang]' AND A.id = " . $_GET['id'])[0];
 
 $page_title = $atualizacao['titulo'] . ' - ' . t('Update');
 $page_description = strip_tags($atualizacao['conteudo']);
@@ -9,6 +14,9 @@ $page_keywords = 'atualizacao, update, ' . $atualizacao['titulo'];
 
 include 'include/ui/header.php';
 
+if (!isset($_GET['name']) || $_GET['name'] != $atualizacao['titulo']) {
+  redirect($arrConfig['url_site'] . '/update?id=' . $_GET['id'] . '&name=' . $atualizacao['titulo']);
+}
 
 if ($arrConfig['url_site'] == $url_site_prod) {
   $atualizacao['conteudo'] = str_replace(

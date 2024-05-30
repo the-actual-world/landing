@@ -2,9 +2,9 @@
 include 'include/ui/header.php';
 include_once 'include/config.inc.php';
 
-$patrocinadores = my_query('SELECT nome, imagem, url FROM patrocinadores WHERE ativo = 1 ORDER BY ordem');
-$funcionalidades = my_query('SELECT icone, titulo, descricao FROM funcionalidades WHERE ativo = 1 ORDER BY ordem');
-$passos = my_query('SELECT titulo, descricao, ordem FROM passos WHERE ativo = 1 ORDER BY ordem');
+$patrocinadores = my_query('SELECT B.nome, A.imagem, A.url FROM patrocinadores A INNER JOIN patrocinadores_lang B ON A.id = B.id WHERE A.ativo = 1 AND B.lang = "' . $_SESSION['lang'] . '" ORDER BY A.ordem');
+$funcionalidades = my_query('SELECT A.icone, B.titulo, B.descricao FROM funcionalidades A INNER JOIN funcionalidades_lang B ON A.id = B.id WHERE A.ativo = 1 AND B.lang = "' . $_SESSION['lang'] . '" ORDER BY A.ordem');
+$passos = my_query('SELECT B.titulo, B.descricao, A.ordem FROM passos A INNER JOIN passos_lang B ON A.id = B.id WHERE A.ativo = 1 AND B.lang = "' . $_SESSION['lang'] . '" ORDER BY A.ordem');
 
 add_log('inicio', 'VER_INICIO');
 ?>

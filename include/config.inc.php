@@ -17,8 +17,17 @@ if (isset($_COOKIE["lang"])) {
     }
 }
 if (!isset($_SESSION["lang"])) {
-    $_SESSION["lang"] = "en";
-    setcookie("lang", "en", time() + 86400 * 100, "/");
+    // $_SESSION["lang"] = "en";
+    // setcookie("lang", "en", time() + 86400 * 100, "/");
+    // set the language to either pt or en, depending on the browser's language
+    $browserLang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+    if (array_key_exists($browserLang, $arrConfig['langs'])) {
+        $_SESSION["lang"] = $browserLang;
+        setcookie("lang", $browserLang, time() + 86400 * 100, "/");
+    } else {
+        $_SESSION["lang"] = "en";
+        setcookie("lang", "en", time() + 86400 * 100, "/");
+    }
 }
 
 // Configurações de URL e diretórios

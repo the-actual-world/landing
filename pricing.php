@@ -52,57 +52,19 @@ add_log('precos', 'VER_PRECOS');
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-6 fs-5">
-          <p class="text-center">
-            A FAZER AINDA!!!! FAZER PAGINA DE PREÇOS COM TRADUCOES
-          </p>
-          <h2 class="h2 mb-3" style="color: red;">Porquê uma rede social paga?</h2>
-          <p>
-            <strong>Pode parecer estranho e até contraditório à primeira vista</strong>, mas a
-            verdade
-            é que a subscrição
-            é a melhor forma de <strong>garantir a privacidade e segurança dos
-              utilizadores</strong>.
-            Ao contrário das redes
-            sociais convencionais, que vendem os dados dos utilizadores a terceiros, uma rede social paga não tem a
-            necessidade de o fazer.
-            A sua fonte de rendimento provém da subscrição dos utilizadores, e é com isso que a plataforma se financia.
-          </p>
-          <p>
-            Assim, a plataforma tem como <strong>único objetivo</strong> agradar aos seus
-            utilizadores,
-            e não a terceiros.
-            Este modelo de negócio é o que permite à plataforma manter-se fiel aos seus valores e princípios, sem ter de
-            ceder à pressão de anunciantes ou investidores.
-          </p>
-          <h3 class="h3 mb-4" style="color: blue;">
-            <em>
-              Deste modo, os utilizadores são os clientes e não o produto.
-            </em>
-          </h3>
-          <p>
-            Até o próprio Instagram foi obrigado a implementar subscrições pagas para utilizadores da União Europeia a
-            9,99€/mês e 12,99€/mês (na minha opinião preços absurdos),
-            respetivamente, se for pago no website ou na aplicação, devido à nova legislação de proteção de dados da
-            União
-            Europeia.
-          </p>
-          <p>
-            O preço do The Actual World é de 1,99€/mês. Este preço é baixo o suficiente para ser acessível à maioria das
-            pessoas, mas razoável o suficiente para garantir que a plataforma se mantém financeiramente estável e que
-            até
-            gera algum lucro.
-          </p>
+          <?php echo t('PricingPageHTML') ?>
         </div>
       </div>
     </div>
   </section>
 
+  <!--
   <section class="section bg-light">
     <div class="container">
 
       <div class="row justify-content-center">
 
-        <!-- <div class="col-lg-4 mb-4 mb-lg-0">
+        <div class="col-lg-4 mb-4 mb-lg-0">
           <div class="pricing h-100 text-center">
             <span>&nbsp;</span>
             <h3>Basic</h3>
@@ -115,7 +77,7 @@ add_log('precos', 'VER_PRECOS');
               <p><a href="#" class="btn btn-white">Choose Plan</a></p>
             </div>
           </div>
-        </div> -->
+        </div>
         <div class="col-lg-4 mb-4 mb-lg-0">
           <div class="pricing h-100 text-center popular">
             <span class="popularity">Privado</span>
@@ -132,7 +94,7 @@ add_log('precos', 'VER_PRECOS');
             </div>
           </div>
         </div>
-        <!-- <div class="col-lg-4 mb-4 mb-lg-0">
+        <div class="col-lg-4 mb-4 mb-lg-0">
           <div class="pricing h-100 text-center">
             <span class="popularity">Best Value</span>
             <h3>Ultimate</h3>
@@ -146,10 +108,11 @@ add_log('precos', 'VER_PRECOS');
               <p><a href="#" class="btn btn-white">Choose Plan</a></p>
             </div>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
   </section>
+  -->
 
   <?php include 'include/ui/cta-section.php'; ?>
 </main>

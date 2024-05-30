@@ -61,3 +61,11 @@ function my_query($sql, $debug = 0)
 	}
 	return 0;
 }
+
+function my_lang_query($sql, $debug = 0)
+{
+	// get table from the $sql
+	$split = explode(' ', $sql);
+	$table = $split[3];
+	return my_query($sql . ' INNER JOIN lang_' . $table . ' ON ' . $table . '.id = lang_' . $table . '.id', $debug);
+}

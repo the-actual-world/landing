@@ -32,12 +32,11 @@
             <ul class="list-unstyled">
               <?php
               $links = [
-                '' => 'Início',
-                'about' => 'Sobre',
-                'pricing' => 'Preço',
-                'catalog' => 'Catálogo',
-                'updates' => 'Atualizações',
-                'contact' => 'Contacto'
+                '' => t('Home'),
+                'about' => t('AboutUs'),
+                'pricing' => t('Pricing'),
+                'updates' => t('Updates'),
+                'contact' => t('Contact'),
               ]
                 ?>
               <?php foreach ($links as $link => $nome) { ?>
@@ -53,7 +52,7 @@
             </h3>
             <ul class="list-unstyled">
               <?php
-              $categorias_faq = my_query("SELECT * FROM faq_categorias WHERE id_pai = 0 ORDER BY nome ASC");
+              $categorias_faq = my_query("SELECT A.*, B.* FROM faq_categorias A INNER JOIN faq_categorias_lang B ON A.id = B.id WHERE A.id_pai = 0 AND B.lang = '" . $_SESSION['lang'] . "' ORDER BY B.nome ASC");
               foreach ($categorias_faq as $categoria_faq) {
                 echo '<li><a href="' . $arrConfig['url_site'] . '/help?id=' . $categoria_faq['id'] . '">' . $categoria_faq['nome'] . '</a></li>';
               }

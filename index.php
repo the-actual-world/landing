@@ -30,7 +30,7 @@ if ($page != null) {
   exit;
 }
 
-$page = my_query("SELECT imagem, titulo, conteudo FROM conteudo WHERE slug = '$path' AND ativo = 1")[0] ?? null;
+$page = my_query("SELECT A.imagem, B.titulo, B.conteudo FROM conteudo A, conteudo_lang B WHERE A.slug = '$path' AND A.ativo = 1 AND B.lang = '$_SESSION[lang]' AND A.id = B.id")[0] ?? null;
 
 if ($page != null) {
   $page_title = $page['titulo'];

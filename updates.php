@@ -18,7 +18,7 @@ if ($page > $total_pages || $page < 1) {
   redirect('updates');
 }
 
-$atualizacoes = my_query("SELECT * FROM atualizacoes WHERE ativo = 1 ORDER BY data DESC LIMIT $limit OFFSET $offset");
+$atualizacoes = my_query("SELECT A.*, B.* FROM atualizacoes A INNER JOIN atualizacoes_lang B ON A.id = B.id WHERE ativo = 1 AND B.lang = '$_SESSION[lang]' ORDER BY data DESC LIMIT $limit OFFSET $offset");
 
 add_log('atualizacoes', 'VER_ATUALIZACOES');
 ?>

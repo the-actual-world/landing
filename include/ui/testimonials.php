@@ -1,5 +1,5 @@
 <?php
-$testemunhos = my_query('SELECT nome_pessoa, imagem_pessoa, cargo_pessoa, titulo, conteudo, estrelas FROM testemunhos WHERE ativo = 1');
+$testemunhos = my_query('SELECT B.nome_pessoa, A.imagem_pessoa, B.cargo_pessoa, B.titulo, B.conteudo, A.estrelas FROM testemunhos A INNER JOIN testemunhos_lang B ON A.id = B.id WHERE B.lang = "' . $_SESSION['lang'] . '" AND A.ativo = 1');
 ?>
 
 <section class="section border-top border-bottom">
