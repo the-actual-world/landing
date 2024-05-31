@@ -51,7 +51,7 @@ add_log('inicio', 'VER_INICIO');
                 <?php echo t('Download') ?>
               </button>
               <a href="help" class="btn btn-outline-white">
-                <?php echo t('Help') ?>
+                <?php echo t('LearnMore') ?>
               </a>
             </div>
           </div>

@@ -23,6 +23,7 @@ $arrLangs = [
   "Help" => "Ajuda",
   "Language" => "Idioma",
   "Download" => "Instalar", // Mudar para "Instalar"
+  "LearnMore" => "Saber Mais",
 
   // Footer
   "Navigation" => "Navegação",

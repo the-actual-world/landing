@@ -23,6 +23,7 @@ $arrLangs = [
   "Help" => "Help",
   "Language" => "Language",
   "Download" => "Install", // Changed to "Install"
+  "LearnMore" => "Learn More",
 
   // Footer
   "Navigation" => "Navigation",
@@ -37,7 +38,7 @@ $arrLangs = [
   "WaitlistSuccess" => "Thank you for signing up! You will be notified when the platform is available to you.",
 
   // Home Page
-  "HeroSlogan" => "A Social Network<br>Truly Social",
+  "HeroSlogan" => "Actually Social<br>Social Media",
   "HeroSubtitle" => "We don't sell your data. We don't track you.<br>We don't try to keep you on the platform longer <em>(in fact, quite the opposite)</em>.<br>Have fun with your friends, share photos, and create memories. <strong>That's it.</strong>",
   "BroughtBy" => "Brought to you by",
 
@@ -159,7 +160,7 @@ $arrLangs = [
   // Others
   "GlobalPageTitle" => "The Actual World",
   "GlobalPageTitleSuffix" => " - TAW",
-  "GlobalPageDescription" => "Transparent Social Network, Truly Social",
+  "GlobalPageDescription" => "Transparent, Actually Social Social Media",
   "GlobalPageKeywords" => "social network, privacy, security, transparency, friends, sharing, photos, memories",
   "GlobalPageDescriptionSuffix" => " - The social network that respects you: The Actual World",
 ];

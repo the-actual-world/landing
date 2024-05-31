@@ -140,7 +140,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
   <!-- Google Fonts -->
   <link
-    href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
     rel="stylesheet">
 
   <!-- Vendor CSS Files -->
