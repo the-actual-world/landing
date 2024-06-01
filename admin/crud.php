@@ -4,6 +4,7 @@ include 'include/ui/header.php';
 $mode = isset($_GET['mode']) ? $_GET['mode'] : null; // null | handle_form (process form action)
 $module = isset($_GET['module']) ? $_GET['module'] : 'patrocinadores'; // slug of the module
 $action = isset($_GET['action']) ? $_GET['action'] : 'list'; // list | add | update | delete
+$selected_lang = isset($_GET['lang']) ? $_GET['lang'] : $_SESSION['lang'] ?? 'pt';
 
 function renderFormField($field, $config, $languages, $values = [])
 {
@@ -208,11 +209,11 @@ function renderForm($module, $action, $fields, $languages, $data = [])
 
 function renderTable($module, $fields, $data, $isDatatable = true, $showActions = true, $showAddButton = true)
 {
-    global $arrConfig, $modules, $formats;
-    if (isset($config['editable']) && $modules[$module]['supports_lang']) {
+    global $arrConfig, $modules, $formats, $selected_lang;
+    if ($modules[$module]['supports_lang']) {
         echo "<select class='form-select mb-3' onchange=\"window.location.href = this.value\">";
         foreach ($arrConfig['langs'] as $lang => $name) {
-            $selected = $_GET['lang'] == $lang ? 'selected' : '';
+            $selected = $selected_lang == $lang ? 'selected' : '';
             echo "<option value='crud.php?module=$module&action=list&lang=$lang' $selected>$name</option>";
         }
         echo "</select>";
@@ -264,17 +265,37 @@ function renderTable($module, $fields, $data, $isDatatable = true, $showActions 
                 if ($inner_text == "" || $inner_text == "0") {
                     $text = "<td>Nenhum</td>";
                 } else {
+                    // $foreign = $config['foreign'];
+                    // $highlighted_columns = isset($foreign['highlighted_columns']) ? $foreign['highlighted_columns'] : [];
+                    // $highlighted_text = "";
+                    // $q = "SELECT " . implode(", ", $highlighted_columns) . " FROM $foreign[module] WHERE $foreign[column] = {$row[$field]}";
+                    // $foreign_row = my_query($q)[0];
+                    // foreach ($highlighted_columns as $highlighted_column) {
+                    //     $highlighted_text .= $foreign_row[$highlighted_column] . ", ";
+                    // }
+                    // $highlighted_text = substr($highlighted_text, 0, -2);
+                    // $text = "<td><a href='crud.php?module=$foreign[module]&action=update&$foreign[column]={$row[$field]}'>$inner_text</a> ($highlighted_text)</td>";
 
                     $foreign = $config['foreign'];
                     $highlighted_columns = isset($foreign['highlighted_columns']) ? $foreign['highlighted_columns'] : [];
-                    $highlighted_text = "";
-                    $q = "SELECT " . implode(", ", $highlighted_columns) . " FROM $foreign[module] WHERE $foreign[column] = {$row[$field]}";
-                    $foreign_row = my_query($q)[0];
+                    // get all the highlighted columns and check if they support lang (handle each one accordingly)
                     foreach ($highlighted_columns as $highlighted_column) {
-                        $highlighted_text .= $foreign_row[$highlighted_column] . ", ";
+                        if (isset($modules[$foreign['module']]['columns'][$highlighted_column]['lang_dependent']) && $modules[$foreign['module']]['columns'][$highlighted_column]['lang_dependent']) {
+                            $highlighted_text = "";
+                            $q = "SELECT * FROM {$foreign['module']}_lang WHERE lang = '{$selected_lang}' AND $foreign[column] = {$row[$field]}";
+                            $foreign_row = my_query($q)[0];
+                            $highlighted_text .= $foreign_row[$highlighted_column] . ", ";
+                            $highlighted_text = substr($highlighted_text, 0, -2);
+                            $text = "<td><a href='crud.php?module=$foreign[module]&action=update&$foreign[column]={$row[$field]}'>$inner_text</a> ($highlighted_text)</td>";
+                        } else {
+                            $highlighted_text = "";
+                            $q = "SELECT * FROM {$foreign['module']} WHERE $foreign[column] = {$row[$field]}";
+                            $foreign_row = my_query($q)[0];
+                            $highlighted_text .= $foreign_row[$highlighted_column] . ", ";
+                            $highlighted_text = substr($highlighted_text, 0, -2);
+                            $text = "<td><a href='crud.php?module=$foreign[module]&action=update&$foreign[column]={$row[$field]}'>$inner_text</a> ($highlighted_text)</td>";
+                        }
                     }
-                    $highlighted_text = substr($highlighted_text, 0, -2);
-                    $text = "<td><a href='crud.php?module=$foreign[module]&action=update&$foreign[column]={$row[$field]}'>$inner_text</a> ($highlighted_text)</td>";
                 }
             }
             echo $text;
@@ -380,23 +401,21 @@ if ($mode == 'handle_form') {
                 }
             }
 
-            if (!isset($config['editable']) || $config['editable']) {
                 if (isset($config['lang_dependent']) && $config['lang_dependent']) {
                     foreach ($_POST[$field] as $lang => $value) {
                         $langs_data[$lang][$field] = $arrConfig['conn']->real_escape_string($value);
                     }
-                } else {
+                } else if (!isset($config['editable']) || $config['editable']) {
                     $sql_normal .= "$field, ";
                     $sql_normal_values .= "'{$arrConfig['conn']->real_escape_string($_POST[$field])}', ";
                 }
-            }
         }
         $sql_normal = substr($sql_normal, 0, -2) . ") ";
         $sql_normal_values = substr($sql_normal_values, 0, -2) . ") ";
         $last_id = my_query($sql_normal . $sql_normal_values);
 
         if ($last_id) {
-            if (isset($config['editable']) && $modules[$module]['supports_lang']) {
+            if ($modules[$module]['supports_lang']) {
                 foreach ($langs_data as $lang => $data) {
                     $sql_lang = "INSERT INTO {$module}_lang (id, lang, ";
                     $sql_lang_values = "VALUES ($last_id, '$lang', ";
@@ -775,7 +794,7 @@ if ($mode == 'handle_form') {
                   });
                 </script>';
             } else {
-                if (isset($config['editable']) && $modules[$module]['supports_lang']) {
+                if ($modules[$module]['supports_lang']) {
                     $on_text = "";
                     foreach ($modules[$module]['columns'] as $field => $config) {
                         if (isset($config['primary']) && $config['primary']) {
@@ -784,10 +803,9 @@ if ($mode == 'handle_form') {
                     }
                     $on_text = substr($on_text, 0, -5);
 
-                    $lang = $_GET['lang'] ?? $_SESSION["lang"] ?? 'pt';
                     $data = my_query("SELECT * FROM $module A
                                         INNER JOIN {$module}_lang B ON $on_text
-                                        WHERE B.lang = '$lang'");
+                                        WHERE B.lang = '$selected_lang'");
                 } else {
                     $data = my_query("SELECT * FROM $module");
                 }

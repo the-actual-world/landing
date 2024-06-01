@@ -211,7 +211,7 @@ include_once 'get/userinfo.php';
                 'menu',
                 'mensagens',
                 'waitlist',
-                'utilizadores',
+                // 'utilizadores',
               ],
               "Produtos" => [
                 'produtos',

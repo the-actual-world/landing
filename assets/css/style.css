@@ -897,7 +897,7 @@ section {
       rgba(var(--primary-dark-rgb), 0.8) 0%,
       rgba(var(--secondary-dark-rgb), 0.8) 100%
     ),
-    url(../img/hero-bg.jpg);
+    url("../img/hero-bg.jpg") top center;
   position: relative;
 }
 

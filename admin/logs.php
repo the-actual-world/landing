@@ -77,9 +77,9 @@ if (!empty($userId)) {
             <div class="row">
               <div class="col-md-5">
                 <div class="form-group">
-                  <label for="userId">Utilizador <span class="text-muted">(opcional)</span></label>
+                  <label for="userId">Administrador <span class="text-muted">(opcional)</span></label>
                   <select class="form-control" id="userId" name="userId">
-                    <option value="">Qualquer pessoa</option>
+                    <option value="">Qualquer visitante</option>
                     <?php foreach ($users as $user): ?>
                       <option value="<?php echo $user['id'] ?>" <?php echo $user['id'] === $userId ? 'selected' : '' ?>>
                         <?php echo "{$user['primeiro_nome']} {$user['ultimo_nome']} ({$user['email']})" ?>

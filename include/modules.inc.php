@@ -293,14 +293,18 @@ $modules = [
         'name' => 'Ação',
         'type' => 'text',
       ],
+      // 'id_utilizador' => [
+      //   'name' => 'ID do Utilizador',
+      //   'type' => 'number',
+      //   'foreign' => [
+      //     'module' => 'utilizadores',
+      //     'column' => 'id',
+      //     'highlighted_columns' => ['primeiro_nome', 'ultimo_nome', 'email'] // optional
+      //   ]
+      // ],
       'id_utilizador' => [
         'name' => 'ID do Utilizador',
         'type' => 'number',
-        'foreign' => [
-          'module' => 'utilizadores',
-          'column' => 'id',
-          'highlighted_columns' => ['primeiro_nome', 'ultimo_nome', 'email'] // optional
-        ]
       ],
       'endereco_ip' => [
         'name' => 'Endereço de IP',
@@ -717,39 +721,39 @@ $modules = [
       ]
     ]
   ],
-  'utilizadores' => [
-    'name' => t('Users'),
-    'icon' => 'fa fa-user',
-    'supports_lang' => false,
-    'columns' => [
-      'id' => [
-        'name' => 'ID',
-        'primary' => true,
-        'editable' => false,
-        'type' => 'hidden',
-        'required' => false
-      ],
-      'email' => [
-        'name' => 'Email',
-        'type' => 'text',
-      ],
-      'primeiro_nome' => [
-        'name' => 'Primeiro Nome',
-        'type' => 'text',
-      ],
-      'ultimo_nome' => [
-        'name' => 'Último Nome',
-        'type' => 'text',
-      ],
-      'password' => [
-        'name' => 'Senha',
-        'type' => 'password',
-      ],
-      'ativo' => [
-        'name' => 'Ativo',
-        'type' => 'checkbox',
-        'required' => false
-      ]
-    ]
-  ],
+  // 'utilizadores' => [
+  //   'name' => t('Users'),
+  //   'icon' => 'fa fa-user',
+  //   'supports_lang' => false,
+  //   'columns' => [
+  //     'id' => [
+  //       'name' => 'ID',
+  //       'primary' => true,
+  //       'editable' => false,
+  //       'type' => 'hidden',
+  //       'required' => false
+  //     ],
+  //     'email' => [
+  //       'name' => 'Email',
+  //       'type' => 'text',
+  //     ],
+  //     'primeiro_nome' => [
+  //       'name' => 'Primeiro Nome',
+  //       'type' => 'text',
+  //     ],
+  //     'ultimo_nome' => [
+  //       'name' => 'Último Nome',
+  //       'type' => 'text',
+  //     ],
+  //     'password' => [
+  //       'name' => 'Senha',
+  //       'type' => 'password',
+  //     ],
+  //     'ativo' => [
+  //       'name' => 'Ativo',
+  //       'type' => 'checkbox',
+  //       'required' => false
+  //     ]
+  //   ]
+  // ],
 ];
