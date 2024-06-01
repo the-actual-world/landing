@@ -63,7 +63,9 @@ foreach ($env_lines as $line) {
         continue;
     }
     $parts = explode('=', $line);
-    $env[$parts[0]] = $parts[1];
+    // get all the last parts
+    $new_parts = array_slice($parts, 1);
+    $env[$parts[0]] = implode('=', $new_parts);
 }
 
 // Configurações de base de dados

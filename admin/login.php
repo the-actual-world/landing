@@ -20,7 +20,7 @@ if (isset($_COOKIE['id']) && $_COOKIE['id'] != '' || isset($_SESSION['id']) && $
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
-<body class="bg-primary">
+<body class="bg-accent">
     <div id="layoutAuthentication">
         <div id="layoutAuthentication_content">
             <main>

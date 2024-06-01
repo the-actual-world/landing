@@ -32,6 +32,10 @@ include_once 'get/userinfo.php';
   <script src="https://cdn.jsdelivr.net/npm/bootstrap-confirmation2/dist/bootstrap-confirmation.min.js"></script>
 
   <link
+    href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <link
     href="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-2.0.0/b-3.0.0/b-colvis-3.0.0/b-html5-3.0.0/b-print-3.0.0/cr-2.0.0/date-1.5.2/fc-5.0.0/fh-4.0.0/kt-2.12.0/sb-1.7.0/datatables.min.css"
     rel="stylesheet">
   <link href="../assets/vendor/summernote/summernote-bs4.min.css" rel="stylesheet" />
@@ -190,6 +194,11 @@ include_once 'get/userinfo.php';
       <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
           <div class="nav">
+          <div class="sb-sidenav-menu-heading">Plataforma</div>
+            <a class="nav-link" href="app_stats.php">
+              <div class="sb-nav-link-icon"><i class="fas fa-bar-chart"></i></div>
+              Estatísticas
+            </a>
             <div class="sb-sidenav-menu-heading">Logs</div>
             <a class="nav-link" href="index.php">
               <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
