@@ -65,13 +65,13 @@ add_log('contacto', 'VER_CONTACTO');
           <ul class="list-unstyled">
             <li class="mb-3">
               <strong class="d-block mb-1">Website</strong>
-              <a href="https://theactual.world">theactual.world</a>
+              <a href="https://theactualworld.com">theactualworld.com</a>
             </li>
             <li class="mb-3">
               <strong class="d-block mb-1">
                 <?php echo t('Email') ?>
               </strong>
-              <a href="mailto:hey@theactual.world">hey@theactual.world</a>
+              <a href="mailto:hey@theactualworld.com">hey@theactualworld.com</a>
             </li>
           </ul>
         </div>
