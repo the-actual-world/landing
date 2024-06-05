@@ -70,7 +70,7 @@ $arrLangs = [
     <p>Credits are deducted from your account based on what you use, in this case:</p>
     <ul>
       <li><strong>{$CONSTANTS['CreditsPerDayNormal']} credits per day</strong>, that is, ~<{$CONSTANTS['EurosPerMonthNormal']}€ per month ({$CONSTANTS['EurosPerYearNormal']}€ per year) since, even if you do not use the social network, your account continues to be maintained, as well as photos and conversations.</li>
-      <li><strong>{$CONSTANTS['CreditsPerGBPerDay']} credits per day per GB of photos and videos stored</strong>, that is, ~{$CONSTANTS['EurosPerExampleGBPerMonth']}€ per month ({$CONSTANTS['EurosPerExampleGBPerYear']}€ per year) if you have {$CONSTANTS['ExampleGB']} GB of photos and videos stored.</li>
+      <li><strong>{$CONSTANTS['CreditsPerGBPerDay']} credits per day per GB of attachments stored</strong>, that is, ~{$CONSTANTS['EurosPerExampleGBPerMonth']}€ per month ({$CONSTANTS['EurosPerExampleGBPerYear']}€ per year) if you have {$CONSTANTS['ExampleGB']} GB of attachments stored.</li>
       <li><strong>{$CONSTANTS['CreditsPerSummary']} credits for each daily summary you generate </strong> ({$CONSTANTS['EurosPerSummary']}€ per summary).</li>
     </ul>
   ",

@@ -70,7 +70,7 @@ $arrLangs = [
     <p>Os créditos são descontados da tua conta com base naquilo que usas, neste caso:</p>
     <ul>
       <li><strong>{$CONSTANTS['CreditsPerDayNormal']} créditos por dia</strong>, ou seja, ~<{$CONSTANTS['EurosPerMonthNormal']}€ por mês ({$CONSTANTS['EurosPerYearNormal']}€ por ano) visto que, ainda que não uses a rede social, a tua conta continua a ser mantida, assim como fotos e conversas.</li>
-      <li><strong>{$CONSTANTS['CreditsPerGBPerDay']} créditos por dia por GB de fotos e vídeos guardados</strong>, ou seja, ~{$CONSTANTS['EurosPerExampleGBPerMonth']}€ por mês ({$CONSTANTS['EurosPerExampleGBPerYear']}€ por ano) caso tenhas {$CONSTANTS['ExampleGB']} GB de fotos e vídeos guardados.</li>
+      <li><strong>{$CONSTANTS['CreditsPerGBPerDay']} créditos por dia por GB de anexos guardados</strong>, ou seja, ~{$CONSTANTS['EurosPerExampleGBPerMonth']}€ por mês ({$CONSTANTS['EurosPerExampleGBPerYear']}€ por ano) caso tenhas {$CONSTANTS['ExampleGB']} GB de anexos guardados.</li>
       <li><strong>{$CONSTANTS['CreditsPerSummary']} créditos por cada resumo diário que gerares </strong> ({$CONSTANTS['EurosPerSummary']}€ por resumo).</li>
     </ul>
   ",

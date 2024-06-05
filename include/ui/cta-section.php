@@ -7,10 +7,14 @@
         </h3>
       </div>
       <div class="col-md-5 text-center text-md-end">
-        <p><a href="download" class="btn d-inline-flex align-items-center" data-aos="fade-up" data-aos-delay="200"
-            target="_blank"><i class="bx bxl-apple"></i><span>App
-              Store</span></a> <a href="download" class="btn d-inline-flex align-items-center" data-aos="fade-up"
-            data-aos-delay="300" target="_blank"><i class="bx bxl-play-store"></i><span>Google Play</span></a></p>
+      <p>
+        <button type="button" class="btn btn-primary d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modalDownload" data-aos="fade-up" data-aos-delay="200">
+          <i class="bx bxl-apple"></i><span>App Store</span>
+        </button> 
+        <button type="button" class="btn btn-primary d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modalDownload" data-aos="fade-up" data-aos-delay="300">
+          <i class="bx bxl-play-store"></i><span>Play Store</span>
+        </button>
+      </p>
       </div>
     </div>
   </div>
