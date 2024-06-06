@@ -12,11 +12,26 @@ function my_connect($arrConfig)
 	return $arrConfig['mysql_conn'];
 }
 
+function sanitize_sql($sql)
+{
+	$blacklist = [";", "--", "/*", "*/", "@@", "@"];
+	foreach ($blacklist as $item) {
+		if (strpos($sql, $item) !== false) {
+			die("Error");
+		}
+	}
+	return $sql;
+}
+
 function my_query($sql, $debug = 0)
 {
 	global $arrConfig;
-	if ($debug)
+
+	$sql = sanitize_sql($sql);
+	
+	if ($debug) {
 		echo $sql;
+	}
 	$result = $arrConfig['conn']->query($sql);
 
 	/* SELECT
@@ -61,3 +76,4 @@ function my_query($sql, $debug = 0)
 	}
 	return 0;
 }
+?>

@@ -3,7 +3,10 @@ include_once 'include/config.inc.php';
 
 $path = $_GET['path'] ?? 'index';
 
-error_reporting(0);
+// error_reporting(0);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 if (strpos($path, 'admin') != false) {
   exit;
@@ -102,6 +105,13 @@ if ($page != null) {
   die;
 }
 
+// remove all / after the first one in the url
+$paths = explode('/', $path);
+if (count($paths) > 1) {
+  $path = $paths[0];
+
+  redirect($arrConfig['url_site'] . '/' . $path);
+}
 
 $page['titulo'] = t('PageNotFound');
 $page['conteudo'] = '
