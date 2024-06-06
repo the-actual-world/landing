@@ -9,12 +9,12 @@ echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 // Add static URLs
 $staticUrls = [
   'about.php',
-  'catalog.php',
   'contact.php',
   'help.php',
   'home.php',
   'index.php',
   'pricing.php',
+  'updates.php',
   'robots.txt'
 ];
 
