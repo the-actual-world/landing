@@ -103,7 +103,7 @@ if ($page != null) {
 }
 
 
-$page['titulo'] = 'Página não encontrada';
+$page['titulo'] = t('PageNotFound');
 $page['conteudo'] = '
   <?php include \'include/ui/header.php\'; ?>
   <?php
@@ -118,13 +118,13 @@ $page['conteudo'] = '
             404
           </h1>
           <h2 class="text-white">
-            Página não encontrada
+            <?php echo $page[\'titulo\']; ?>
           </h2>
           <p>
-            A página que procura não foi encontrada.
+            <?php echo t("Error404") ?>
           </p>
           <a href="<?php echo $arrConfig[\'url_site\'] ?>" class="btn btn-primary">
-            Voltar
+            <?php echo t("Back") ?>
           </a>
         </div>
       </div>
@@ -133,3 +133,13 @@ $page['conteudo'] = '
 
   <?php include \'include/ui/footer.php\'; ?>
 ';
+
+$page_title = $page['titulo'];
+$page_description = strip_tags($page['conteudo']);
+$page_keywords = $page_title;
+
+eval ('?>'
+  . $page['conteudo']
+);
+?>
+

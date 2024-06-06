@@ -29,6 +29,11 @@ $arrLangs = [
   "Navigation" => "Navigation",
   "Start" => "Start",
 
+  // 404
+  "Back" => "Back",
+  "Error404" => "It seems that the page you are looking for does not exist. Please check the URL and try again.",
+  "PageNotFound" => "Page not found",
+
   // Waitlist
   "JoinWaitlist" => "Join the Waitlist",
   "JoinWaitlistSubtitle" => "Sign up to be notified when the platform is available.",
