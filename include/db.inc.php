@@ -14,7 +14,7 @@ function my_connect($arrConfig)
 
 function sanitize_sql($sql)
 {
-	$blacklist = [";", "--", "/*", "*/", "@@", "@"];
+	$blacklist = [";", "--", "/*", "*/", "@@"];
 	foreach ($blacklist as $item) {
 		if (strpos($sql, $item) !== false) {
 			die("Error");
@@ -28,37 +28,37 @@ function my_query($sql, $debug = 0)
 	global $arrConfig;
 
 	$sql = sanitize_sql($sql);
-	
+
 	if ($debug) {
 		echo $sql;
 	}
 	$result = $arrConfig['conn']->query($sql);
 
 	/* SELECT
-								 mysqli_result Object
-								 (
-										 [current_field] => 0
-										 [field_count] => 5
-										 [lengths] => 
-										 [num_rows] => 3
-										 [type] => 0
-								 )
-								 */
+		mysqli_result Object
+		(
+			[current_field] => 0
+			[field_count] => 5
+			[lengths] => 
+			[num_rows] => 3
+			[type] => 0
+		)
+	*/
 
 	/* UPDATE
-								 1: correu tudo bem
-								 0: erro na QUERY
-								 */
+		1: correu tudo bem
+		0: erro na QUERY
+	*/
 
 	/* DELETE
-								 1: correu tudo bem
-								 0: erro na QUERY
-								 */
+		1: correu tudo bem
+		0: erro na QUERY
+	*/
 
 	/* INSERT
-								 id: correu tudo bem
-								 0: erro na QUERY
-								 */
+		id: correu tudo bem
+		0: erro na QUERY
+	*/
 
 	if (isset ($result->num_rows)) { // SELECT
 		$arrRes = array();

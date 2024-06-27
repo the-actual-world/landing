@@ -1,6 +1,6 @@
 <?php
 
-include 'include/config.inc.php';
+include '../include/config.inc.php';
 
 if (isset($_POST['email'])) {
   $email = $_POST['email'];
@@ -11,7 +11,7 @@ if (isset($_POST['email'])) {
 
   if (count($result) > 0) {
     my_query("UPDATE waitlist SET receber_atualizacoes = $receiveEmailUpdates WHERE email = '$email'");
-    redirect('index.php?waitlist=1');
+    redirect($arrConfig['url_site'].'/index.php?waitlist=1');
   }
 
   $sql = "INSERT INTO waitlist (email, receber_atualizacoes) VALUES ('$email', $receiveEmailUpdates)";
@@ -19,5 +19,7 @@ if (isset($_POST['email'])) {
 
   add_log('waitlist', 'ADD_EMAIL', $email);
 
-  redirect('index.php?waitlist=1');
+  redirect($arrConfig['url_site'].'/index.php?waitlist=1');
+
+  die;
 }
