@@ -8,11 +8,11 @@ $selected_lang = isset($_GET['lang']) ? $_GET['lang'] : $_SESSION['lang'] ?? 'pt
 
 function renderFormField($field, $config, $languages, $values = [])
 {
-    global $arrConfig, $module, $action;
+    global $arrConfig, $module, $action, $selected_lang, $modules;
     $required = (!isset($config['required']) || $config['required']) ? 'required' : '';
     echo "<div class='mb-3'>";
     if (isset($config['lang_dependent']) && $config['lang_dependent']) {
-        echo "<label class='form-label'>{$config['name']}</label>";
+        echo "<label class='form-label'>{$config['name']} <span data-toggle='tooltip' title='Campo dependente do idioma. Será exibido em diferentes idiomas.'>?</span></label>";
         echo "<div class='table-responsive'>";
         echo "<table class='table'>";
         echo "<thead><tr>";
@@ -78,7 +78,12 @@ function renderFormField($field, $config, $languages, $values = [])
             foreach ($foreignData as $row) {
                 $highlighted_text = "";
                 foreach ($highlighted_columns as $highlighted_column) {
-                    $highlighted_text .= $row[$highlighted_column] . ", ";
+                    if (isset($modules[$foreign['module']]['columns'][$highlighted_column]['lang_dependent']) && $modules[$foreign['module']]['columns'][$highlighted_column]['lang_dependent']) {
+                        $results = my_query("SELECT * FROM {$foreign['module']}_lang WHERE lang = '$selected_lang' AND $foreign[column] = {$row[$foreign['column']]}");
+                        $highlighted_text .= $results[0][$highlighted_column] . ", ";
+                    } else {
+                        $highlighted_text .= $row[$highlighted_column] . ", ";
+                    }
                 }
                 $highlighted_text = substr($highlighted_text, 0, -2);
                 $selected = $values[$field] == $row[$foreign['column']] ? 'selected' : '';
@@ -141,7 +146,7 @@ function renderFormField($field, $config, $languages, $values = [])
 
         if ($config['type'] !== 'hidden') {
             echo "<div class='mb-3'>
-                    <label class='form-label' for='$field'>{$config['name']}</label>
+                    <label class='form-label' for='$field'>{$config['name']} <span data-toggle='tooltip' title='Campo obrigatório.'>?</span></label>
                     $input
                 </div>";
         } else {
@@ -181,7 +186,7 @@ function renderForm($module, $action, $fields, $languages, $data = [])
         foreach ($modules as $slug => $_module) {
             foreach ($_module['columns'] as $field => $config) {
                 if (isset($config['foreign']) && $config['foreign']['module'] == $module) {
-                    echo "<h4>{$_module['name']}</h4>";
+                    echo "<h4>{$_module['name']} <span data-toggle='tooltip' title='Registos associados deste módulo.'>?</span></h4>";
 
                     $foreign = $config['foreign'];
                     $q = "SELECT * FROM $slug WHERE $field = '" . $data['data_main'][$foreign['column']] . "'";
@@ -211,7 +216,7 @@ function renderTable($module, $fields, $data, $isDatatable = true, $showActions 
 {
     global $arrConfig, $modules, $formats, $selected_lang;
     if ($modules[$module]['supports_lang']) {
-        echo "<select class='form-select mb-3' onchange=\"window.location.href = this.value\">";
+        echo "<select class='form-select mb-3' onchange=\"window.location.href = this.value\" title='Seleciona o idioma para exibir os registos.'>";
         foreach ($arrConfig['langs'] as $lang => $name) {
             $selected = $selected_lang == $lang ? 'selected' : '';
             echo "<option value='crud.php?module=$module&action=list&lang=$lang' $selected>$name</option>";
@@ -222,10 +227,10 @@ function renderTable($module, $fields, $data, $isDatatable = true, $showActions 
     echo "<table class='table table-striped' " . ($isDatatable ? "id='datatablesSimple'" : "") . ">";
     echo "<thead><tr>";
     foreach ($fields as $field => $config) {
-        echo "<th>{$config['name']}</th>";
+        echo "<th>{$config['name']} <span data-toggle='tooltip' title='Campo da tabela.'>?</span></th>";
     }
     if ($showActions) {
-        echo "<th>Ações</th>";
+        echo "<th>Ações <span data-toggle='tooltip' title='Ações disponíveis para cada registo.'>?</span></th>";
     }
     echo "</tr></thead>";
     foreach ($data as $row) {
@@ -303,11 +308,11 @@ function renderTable($module, $fields, $data, $isDatatable = true, $showActions 
         if ($showActions) {
             echo "<td>
                     <div class='btn-group' role='group' aria-label='Basic example'>
-                        <a href='crud.php?module=$module&action=update$primary_fields_text' class='btn btn-sm btn-primary'>
+                        <a href='crud.php?module=$module&action=update$primary_fields_text' class='btn btn-sm btn-primary' title='Editar registo'>
                         <i class='fa fa-edit'></i>
                         </a>
                         <a href='crud.php?module=$module&action=delete$primary_fields_text&mode=handle_form' class='btn btn-sm btn-danger' data-toggle='confirmation' data-title='Tens a certeza?' data-btn-ok-label='Sim' data-btn-ok-class='btn btn-success d-flex gap-1' data-btn-cancel-label='Não' data-btn-cancel-class='btn btn-danger d-flex gap-1' 
-                        data-btn-ok-icon-class='fa fa-check' data-btn-cancel-icon-class='fa fa-times'>
+                        data-btn-ok-icon-class='fa fa-check' data-btn-cancel-icon-class='fa fa-times' title='Eliminar registo'>
                         <i class='fa fa-trash'></i>
                         </a>
                     </div>
@@ -318,7 +323,7 @@ function renderTable($module, $fields, $data, $isDatatable = true, $showActions 
     echo "</tbody></table>";
 
     if ($showAddButton) {
-        echo "<div class='d-flex justify-content-end'><a href='crud.php?module=$module&action=add' class='btn btn-success mt-2'>Adicionar Novo</a></div>";
+        echo "<div class='d-flex justify-content-end'><a href='crud.php?module=$module&action=add' class='btn btn-success mt-2' title='Adicionar novo registo'>Adicionar Novo</a></div>";
     }
 }
 
@@ -788,7 +793,7 @@ if ($mode == 'handle_form') {
                               },
                             ],
                           },
-                        },
+                        ],
                       });
                     }
                   });
@@ -819,5 +824,11 @@ if ($mode == 'handle_form') {
 </main>
 </div>
 </main>
+
+<script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
 
 <?php include 'include/ui/footer.php'; ?>
