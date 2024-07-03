@@ -27,7 +27,9 @@ function my_query($sql, $debug = 0)
 {
 	global $arrConfig;
 
-	$sql = sanitize_sql($sql);
+	if (!$_SESSION['isLoggedIn']) {
+		$sql = sanitize_sql($sql);
+	}
 
 	if ($debug) {
 		echo $sql;
