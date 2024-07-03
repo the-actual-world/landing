@@ -158,7 +158,7 @@ function renderFormField($field, $config, $languages, $values = [])
 
 function renderForm($module, $action, $fields, $languages, $data = [])
 {
-    global $modules;
+    global $modules, $selected_lang;
     $textoForm = "<form method='post' enctype='multipart/form-data' action='crud.php?module=$module&action=$action&mode=handle_form";
     if ($action == 'update') {
         foreach ($fields as $field => $value) {
@@ -189,8 +189,20 @@ function renderForm($module, $action, $fields, $languages, $data = [])
                     echo "<h4>{$_module['name']} <span data-toggle='tooltip' title='Registos associados deste módulo.'>?</span></h4>";
 
                     $foreign = $config['foreign'];
-                    $q = "SELECT * FROM $slug WHERE $field = '" . $data['data_main'][$foreign['column']] . "'";
-                    $foreignData = my_query($q);
+                    if (isset($_module['supports_lang']) && $_module['supports_lang']) {
+                        $on_text = "";
+                        foreach ($modules[$module]['columns'] as $_field => $config) {
+                            if (isset($config['primary']) && $config['primary']) {
+                                $on_text .= "$slug.$_field = {$slug}_lang.$_field AND ";
+                            }
+                        }
+                        $on_text = substr($on_text, 0, -5);
+                        $q = "SELECT * FROM $slug INNER JOIN {$slug}_lang ON $on_text WHERE {$slug}_lang.lang = '$selected_lang' AND $slug.$field = {$data['data_main'][$foreign['column']]}";
+                        $foreignData = my_query($q);
+                    } else {
+                        $q = "SELECT * FROM $slug WHERE $field = '" . $data['data_main'][$foreign['column']] . "'";
+                        $foreignData = my_query($q);
+                    }
 
                     if (count($foreignData) > 0) {
                         $columnsToRender = array_diff_key($_module['columns'], array_flip([$field]));
@@ -807,7 +819,7 @@ if ($mode == 'handle_form') {
                         }
                     }
                     $on_text = substr($on_text, 0, -5);
-
+                    
                     $data = my_query("SELECT * FROM $module A
                                         INNER JOIN {$module}_lang B ON $on_text
                                         WHERE B.lang = '$selected_lang'");
