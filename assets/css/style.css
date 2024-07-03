@@ -777,6 +777,31 @@ section {
   visibility: visible;
 }
 
+/* Add this to prevent submenus from going out of viewport */
+.navbar .dropdown .dropdown:hover > ul {
+  opacity: 1;
+  top: 0;
+  left: 100%;
+  visibility: visible;
+  transform-origin: 0 0;
+}
+
+.navbar .dropdown .dropdown:hover > ul:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.navbar .dropdown .dropdown:hover > ul {
+  left: auto;
+  right: 100%;
+  transform-origin: 100% 0;
+}
+
 @media (max-width: 1366px) {
   .navbar .dropdown .dropdown ul {
     left: -90%;
