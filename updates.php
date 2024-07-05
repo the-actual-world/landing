@@ -73,7 +73,7 @@ add_log('atualizacoes', 'VER_ATUALIZACOES');
       <div class="grid row">
 
         <?php foreach ($atualizacoes as $index => $atualizacao) { ?>
-          <div class="col-4" data-aos="fade-up" data-aos-delay="<?php echo $index * 100; ?>">
+          <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="<?php echo $index * 100; ?>">
             <div class="card">
               <div class="post-entry px-3" <?php echo $atualizacao['tipo'] == 'correcao' ? 'correcao' : ($atualizacao['tipo'] == 'melhoria' ? 'melhoria' : 'nova-funcionalidade'); ?>">
                 <a href="update?id=<?php echo $atualizacao['id']; ?>" class="d-block my-3">
